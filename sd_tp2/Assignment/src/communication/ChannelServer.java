@@ -13,8 +13,7 @@ import java.net.SocketException;
 /**
  * Server side communication channel creation.
  * 
- * @author André Oliveira
- * @author João Coelho
+ * @author Leandro e João
  */
 
 public class ChannelServer {

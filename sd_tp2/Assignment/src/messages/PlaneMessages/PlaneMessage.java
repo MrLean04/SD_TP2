@@ -19,7 +19,7 @@ public class PlaneMessage implements Serializable{
     /**
      * WAIR_FOR_ALL_IN_BOARD message.
      */
-    public static final int WAIR_FOR_ALL_IN_BOARD = 1;
+    public static final int WAIT_FOR_ALL_IN_BOARD = 1;
 
     /**
      * UPD message.
@@ -51,6 +51,9 @@ public class PlaneMessage implements Serializable{
      */
     public static final int SUCCESS = 100;
 
+    private int id;
+    private boolean boolTemp;
+
     /**
      * Constructor of LoungeMessage.
      * @param msg type of message received 
@@ -58,8 +61,22 @@ public class PlaneMessage implements Serializable{
     public PlaneMessage(int msg) {
         this.msg = msg;
     }
+
+    public PlaneMessage(int msg, int id) {
+        this.msg = msg;
+        this.id = id;
+    }
+
     public int getMessageType(){
         return this.msg;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public boolean getBoolResponse(){
+        return this.boolTemp;
     }
     
 }

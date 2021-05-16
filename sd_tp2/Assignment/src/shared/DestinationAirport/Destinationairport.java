@@ -1,5 +1,8 @@
 package shared.DestinationAirport;
 
+import communication.ChannelClient;
+import static communication.ChannelPorts.NAME_GENERAL_REPOSITORY;
+import static communication.ChannelPorts.PORT_GENERAL_REPOSITORY;
 import entities.Pilot.States.*;
 import shared.Repo.Airlift;
 import entities.Passenger.States.*;
@@ -19,6 +22,8 @@ import java.util.Queue;
  */
 public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
 
+    private ChannelClient cc_repository;
+
 	private final Queue<Integer> inDestinationAirport = new LinkedList<>();
     private final Queue<Integer> inDebording = new LinkedList<>();
     private boolean l=false;
@@ -30,6 +35,7 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
      */
     public Destinationairport(){// 
         //this.airlift=airlift;
+        this.cc_repository = new ChannelClient(NAME_GENERAL_REPOSITORY, PORT_GENERAL_REPOSITORY);
     }
      //Pilot
     /**
@@ -39,10 +45,10 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
      *@return a boolean representing if all passengers have been transported
      */
     @Override
-    public synchronized boolean AnnounceArrival(PilotState state) {
+    public synchronized boolean AnnounceArrival() {
         //TO-DO
-        airlift.DestinationairportUpdate(state);
-        //airlift.reportArrived();
+        setPilotState2Update(PilotState.FLYING_BACK);
+        reportArrived();
         if(!l) {   
             System.out.println("contador:" + " " +count);
             while (count!=5) {
@@ -64,7 +70,7 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
     public synchronized boolean goBack() {
         //TO-DO
         if( inDebording.size() == 0) {
-            //airlift.reportreturning();
+            reportreturning();
             return true;
         }
         return false;
@@ -89,11 +95,11 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
      *@param state current state of the passenger
      */
     @Override
-    public synchronized void atAirport(int id,PassengerState state) {
+    public synchronized void atAirport(int id) {
         //TO-DO
         inDestinationAirport.add(id);
-        airlift.DestinationairportUpdate(id, state);
-        airlift.DestinationairportUpdate(inDestinationAirport);
+        setPassengerStatesUpdate(id, PassengerState.AT_DESTINATION);
+        atDestinationUpdate(inDestinationAirport.size());
         inDebording.remove(id);
         
     }
@@ -113,6 +119,122 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
     
     public synchronized void zeroCount() {
         count=0;
+    }
+
+    private synchronized void setPassengerStatesUpdate(int id, PassengerState state) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PASSENGER_STATE, state.toString()));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close();
+    }
+
+	private synchronized void setPilotState2Update(PilotState state) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PILOT2_STATE,state.toString()));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+    
+    private synchronized void setPilotStateUpdate( int numberF, PilotState state) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PILOT2_STATE, numberF, state.toString()));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+    
+    private synchronized void setHostessStateUpdate(HostessState state) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_HOSTESS_STATE, state.toString()));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+    
+    private synchronized void inQueueUpdate( int size) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.IN_QUEUE_UPDATE, size));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void inPlaneUpdate( int size) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.IN_PLANE_UPDATE, size));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void atDestinationUpdate( int size) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.AT_DESTINATION_UPDATE, size));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+    private synchronized void reportBoarding() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_BOARDING));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportCheck(int id) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_CHECK), id);
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportDeparted() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_DEPARTED));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportLDeparted() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_L_DEPARTED));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportArrived() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_ARRIVED));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportreturning() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_RETURNING));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+    
+    private void startCommunication(ChannelClient cc) {
+        while(!cc.open()) {
+            try {
+                Thread.sleep(1000);
+            }
+            catch(Exception e) {
+                
+            }
+        }
     }
 }
     

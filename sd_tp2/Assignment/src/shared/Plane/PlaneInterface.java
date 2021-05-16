@@ -32,15 +32,48 @@ public class PlaneInterface {
     public PlaneMessage process( PlaneMessage inMsg) throws  PlaneMessageException {       
         PlaneMessage outMsg = null;
         Object response = null;
-        /*
+        
         switch(inMsg.getMessageType()) {
-            //case DestinationMessage.ADD_TO_REPLACEMENT_QUEUE:
-              //  lounge.addToReplacementQueue(inMsg.getCustId());
-                //outMsg = new LoungeMessage(LoungeMessage.SUCCESS);
-               // break;
+            
+            case PlaneMessage.WAIT_FOR_ALL_IN_BOARD:
+                response = plane.WaitForAllInBoard();
+                outMsg = new PlaneMessage(PlaneMessage.SUCCESS, (boolean) response);
+                break;
+
+            case PlaneMessage.UPD:
+                plane.upd();
+                outMsg = new PlaneMessage(PlaneMessage.SUCCESS);
+                break;
+
+            case PlaneMessage.LFLIGHT:
+                plane.lFly();
+                outMsg = new PlaneMessage(PlaneMessage.SUCCESS);
+                break;
+
+            case PlaneMessage.BOARD_THE_PLANE:
+                response = plane.BoardThePlane(inMsg.getId());
+                outMsg = new PlaneMessage(PlaneMessage.SUCCESS, (boolean) response);
+                break;
+
+            case PlaneMessage.WAITING_FOR_END_OF_FLIGHT:
+                plane.WaitingForEndOfFlight();
+                outMsg = new PlaneMessage(PlaneMessage.SUCCESS);
+                break;
+
+            case PlaneMessage.AT_DESTINATION_POINT:
+                plane.atDestinationPoint();
+                outMsg = new PlaneMessage(PlaneMessage.SUCCESS);
+                break;
+                
+            case PlaneMessage.END:
+                System.out.println("Closing Plane server!");
+                this.status = false;
+                outMsg = new PlaneMessage(PlaneMessage.SUCCESS);
+                break;  
+                
             default:
                 throw new  PlaneMessageException("Invalid message type.", inMsg);
-        }*/
+        }
         return outMsg;
     }
     

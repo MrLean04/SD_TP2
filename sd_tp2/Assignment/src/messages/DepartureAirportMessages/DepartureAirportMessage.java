@@ -44,7 +44,7 @@ public class DepartureAirportMessage implements Serializable{
     /**
      * QUEUE_NOT_EMPTY message
      */
-    public static final int QUEUE_NOT_EMPTY = 6;
+    //public static final int QUEUE_NOT_EMPTY = 6;
 
     /**
      * CHECK_AND_WAIT message
@@ -106,12 +106,28 @@ public class DepartureAirportMessage implements Serializable{
      */
     public static final int SUCCESS = 100;
 
+
+    private int id;
+    private boolean boolTemp;
     /**
      * Constructor of LoungeMessage.
      * @param msg type of message received 
      */
     public DepartureAirportMessage(int msg) {
         this.msg = msg;
+    }
+
+    public DepartureAirportMessage(int msg, int id) {
+        this.msg = msg;
+        this.id=id;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public boolean getBoolResponse(){
+        return this.boolTemp;
     }
 
     public int getMessageType(){

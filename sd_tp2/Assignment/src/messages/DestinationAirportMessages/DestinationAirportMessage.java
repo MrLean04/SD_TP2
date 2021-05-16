@@ -50,6 +50,8 @@ public class DestinationAirportMessage implements Serializable{
      */
     public static final int SUCCESS = 100;
 
+    private int id;
+    private boolean boolTemp;
     /**
      * Constructor of LoungeMessage.
      * @param msg type of message received 
@@ -57,6 +59,19 @@ public class DestinationAirportMessage implements Serializable{
     public DestinationAirportMessage(int msg) {
         this.msg = msg;
     }
+    public DestinationAirportMessage(int msg, int id) {
+        this.msg = msg;
+        this.id=id;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public boolean getBoolResponse(){
+        return this.boolTemp;
+    }
+
     public int getMessageType(){
         return this.msg;
     }

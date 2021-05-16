@@ -112,12 +112,6 @@ public class Passenger extends Thread{
 		cc_Destination.close();
 	}
 
-	
-
-
-
-
-
 	@Override
 	public void run() {
 		this.setPassengerState(PassengerState.GOING_TO_AIRPORT);

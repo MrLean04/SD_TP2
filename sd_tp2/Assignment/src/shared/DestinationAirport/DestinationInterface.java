@@ -34,15 +34,50 @@ public class DestinationInterface {
     public DestinationAirportMessage process(DestinationAirportMessage inMsg) throws DestinationAirportMessageException {       
         DestinationAirportMessage outMsg = null;
         Object response = null;
-        /*
+        
         switch(inMsg.getMessageType()) {
-            //case DestinationMessage.ADD_TO_REPLACEMENT_QUEUE:
-              //  lounge.addToReplacementQueue(inMsg.getCustId());
-                //outMsg = new LoungeMessage(LoungeMessage.SUCCESS);
-               // break;
+            
+            case DestinationAirportMessage.ANNOUNCE_ARRIVAL:
+                response = destination.AnnounceArrival();
+                outMsg = new DestinationAirportMessage(DestinationAirportMessage.SUCCESS, (boolean) response);
+                break;
+
+            case DestinationAirportMessage.GO_BACK:
+                response = destination.goBack();
+                outMsg = new DestinationAirportMessage(DestinationAirportMessage.SUCCESS, (boolean) response);
+                break;
+
+            case DestinationAirportMessage.AT_AIRPORT:
+                destination.atAirport(inMsg.getId());
+                outMsg = new DestinationAirportMessage(DestinationAirportMessage.SUCCESS);
+                break;
+
+            case DestinationAirportMessage.DEBOARDING:
+                destination.Deboarding(inMsg.getId());
+                outMsg = new DestinationAirportMessage(DestinationAirportMessage.SUCCESS);
+                break;
+
+            case DestinationAirportMessage.ZERO_COUNT:
+                destination.zeroCount();
+                outMsg = new DestinationAirportMessage(DestinationAirportMessage.SUCCESS);
+                break;
+            
+            case DestinationAirportMessage.LASTF:
+                response = destination.lastF();
+                outMsg = new DestinationAirportMessage(DestinationAirportMessage.SUCCESS, (boolean) response);
+                break;
+                
+            case DestinationAirportMessage.END:
+                System.out.println("Closing Destination server!");
+                this.status = false;
+                outMsg = new DestinationAirportMessage(DestinationAirportMessage.SUCCESS);
+                break;
+                
+                
+
             default:
                 throw new DestinationAirportMessageException("Invalid message type.", inMsg);
-        }*/
+        }
         return outMsg;
     }
 }

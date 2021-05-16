@@ -1,5 +1,8 @@
 package shared.DepartureAirport;
 
+import communication.ChannelClient;
+import static communication.ChannelPorts.NAME_GENERAL_REPOSITORY;
+import static communication.ChannelPorts.PORT_GENERAL_REPOSITORY;
 import entities.Pilot.States.*;
 import shared.Repo.*;
 import entities.Passenger.States.*;
@@ -19,6 +22,8 @@ import java.util.Queue;
  * @author Leandro and Jo�o
  */
 public class Departureairport implements PilotDA, PassengerDA, HostessDA {
+	private ChannelClient cc_repository;
+
 	private final int max = 10;
 	private final int min = 5;
 	int nPassengerPlane = 0;
@@ -45,7 +50,7 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 */
 	public Departureairport() {
 		//
-		//this.airlift=airlift;
+		this.cc_repository = new ChannelClient(NAME_GENERAL_REPOSITORY, PORT_GENERAL_REPOSITORY);
 	}
 
 	// Pilot
@@ -54,10 +59,10 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 *@param PilotState current state of the pilot
 	 */
 	@Override
-	public synchronized void parkAtTransfer( PilotState PilotState) {
+	public synchronized void parkAtTransfer() {
 		pilotInpark = true;
 		numberF++;
-		airlift.DepartureairportUpdate(numberF,PilotState);
+		setPilotStateUpdate(numberF,PilotState.AT_TRANSFER_GATE);
 		notifyAll();
 	}
 
@@ -66,10 +71,10 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 *@param PilotState current state of the pilot
 	 */
 	@Override
-	public synchronized void readyForBoarding( PilotState PilotState) {
+	public synchronized void readyForBoarding() {
 		pilotready = true;
-		airlift.DepartureairportUpdate(numberF,PilotState);
-		//airlift.reportBoarding();
+		setPilotStateUpdate(numberF,PilotState.READY_FOR_BOARDING);
+		reportBoarding();
 		//pilotInpark = false;
 	}
 
@@ -78,8 +83,8 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 *@param PilotState current state of the pilot
 	 */
 	@Override
-	public synchronized void WaitForBoarding( PilotState PilotState) {
-		airlift.DepartureairportUpdate(numberF,PilotState);
+	public synchronized void WaitForBoarding() {
+		setPilotStateUpdate(numberF,PilotState.WAIT_FOR_BOARDING);
 		while (!PilotReadyFly) {
 			try {
 				wait();
@@ -119,8 +124,8 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 *@return a boolean representing if the queue is not empty
 	 */
 	@Override
-	public synchronized boolean queueNotEmpty( HostessState state) {
-		airlift.DepartureairportUpdate(state);
+	public synchronized boolean queueNotEmpty() {
+		//setHostessStateUpdate();
 		if (inQueue.size() != 0)
 			return true;
 		return false;
@@ -132,7 +137,7 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 *@return a boolean representing if a passenger was checked
 	 */
 	@Override
-	public synchronized boolean checkAndWait(HostessState state) {
+	public synchronized boolean checkAndWait() {
 		// TO-DO
 
 		while (nextPassenger != -1) {
@@ -147,12 +152,12 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 		}
 		System.out.println(inQueue.toString());
 		nextPassenger = inQueue.poll();
-		//airlift.reportCheck(nextPassenger);
-		airlift.DepartureairportUpdate(inQueue);
+		reportCheck(nextPassenger);
+		inQueueUpdate(inQueue.size());
 		// System.out.println(nextPassenger + " entrei na queue");
 		documentCheck.put(nextPassenger, true);
 		inPlane.add(nextPassenger);
-		airlift.DepartureairportUpdate(state);
+		setHostessStateUpdate(HostessState.CHECK_PASSENGER);
 		nPassengerPlane++;
 		notifyAll();
 		System.out.println(documentCheck);
@@ -173,12 +178,12 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 			pilotInpark = false;
 			inPlane.clear();
 			System.out.println(numberF);
-			/**if(!lastF) {
-				airlift.reportDeparted();
+			if(!lastF) {
+				reportDeparted();
 			}
 			else {
-				airlift.reportLDeparted();
-			}*/
+				reportLDeparted();
+			}
 			
 			notifyAll();
 			return true;
@@ -201,9 +206,9 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 *@param state current state of the hostess 
 	 */
 	@Override
-	public synchronized void waitForNextFlightH(HostessState state) {
+	public synchronized void waitForNextFlightH() {
 		// TO-DO
-		airlift.DepartureairportUpdate(state);
+		setHostessStateUpdate(HostessState.WAIT_FOR_NEXT_FLIGHT);
 		notifyAll();
 		while (!pilotInpark) {
 			try {
@@ -222,8 +227,8 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 *@return a boolean representing if the hostess job is done
 	 */
 	@Override
-	public synchronized boolean hostessJobDone( HostessState state) {
-		airlift.DepartureairportUpdate(state);
+	public synchronized boolean hostessJobDone() {
+		setHostessStateUpdate(HostessState.READY_TO_FLY);
 		if (inQueue.size() == 0) {
 			return true;
 			
@@ -272,10 +277,10 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	 * @param state current state of the passenger
 	 */
 	@Override
-	public synchronized void waitInQueue(int id, PassengerState state) {
+	public synchronized void waitInQueue(int id) {
 		inQueue.add(id);
-		airlift.DepartureairportUpdate(id,state);
-		airlift.DepartureairportUpdate(inQueue);
+		setPassengerStatesUpdate(id,PassengerState.IN_QUEUE);
+		inQueueUpdate(inQueue.size());
 		//documentCheck.put(id, false);
 		//System.out.println(id+ "");
 		//notifyAll();
@@ -326,4 +331,119 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	public synchronized int getNumberF() {
 		return  numberF;
 	}
+
+	private synchronized void setPassengerStatesUpdate(int id, PassengerState state) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PASSENGER_STATE, state.toString()));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close();
+    }
+
+	private synchronized void setPilotState2Update(PilotState state) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PILOT2_STATE,state.toString()));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+    
+    private synchronized void setPilotStateUpdate( int numberF, PilotState state) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PILOT2_STATE, numberF, state.toString()));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+    
+    private synchronized void setHostessStateUpdate(HostessState state) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_HOSTESS_STATE, state.toString()));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+    
+    private synchronized void inQueueUpdate( int size) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.IN_QUEUE_UPDATE, size));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void inPlaneUpdate( int size) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.IN_PLANE_UPDATE, size));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void atDestinationUpdate( int size) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.AT_DESTINATION_UPDATE, size));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportBoarding() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_BOARDING));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportCheck(int id) {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_CHECK), id);
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportDeparted() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_DEPARTED));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportLDeparted() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_L_DEPARTED));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportArrived() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_ARRIVED));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+
+	private synchronized void reportreturning() {
+        RepoMessage response;
+        startCommunication(cc_repository);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_RETURNING));
+        response = (RepoMessage) cc_repository.readObject();
+        cc_repository.close(); 
+    }
+	
+    private void startCommunication(ChannelClient cc) {
+        while(!cc.open()) {
+            try {
+                Thread.sleep(1000);
+            }
+            catch(Exception e) {
+                
+            }
+        }
+    }
 }

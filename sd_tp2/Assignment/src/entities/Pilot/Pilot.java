@@ -77,7 +77,7 @@ public class Pilot extends Thread{
 	private boolean WaitForAllInBoard(){
 		PlaneMessage response;
 		openChannel(cc_Plane,"Pilot" + ": Plane");
-		cc_Plane.writeObject(new PlaneMessage(PlaneMessage.WAIR_FOR_ALL_IN_BOARD));
+		cc_Plane.writeObject(new PlaneMessage(PlaneMessage.WAIT_FOR_ALL_IN_BOARD));
 		response = (PlaneMessage) cc_Plane.readObject();
 		cc_Plane.close();
 		return response.getBoolResponse(); 
@@ -177,7 +177,7 @@ public class Pilot extends Thread{
 				
 				case  WAIT_FOR_BOARDING:
 					System.out.println(" WAIT_FOR_BOARDING ");
-					if(WaitForAllInBoard(state)) {
+					if(WaitForAllInBoard()) {
 						setPilotState(PilotState.FLYING_FORWARD );
 					}
 					break;
@@ -197,7 +197,7 @@ public class Pilot extends Thread{
 				
 				case FLYING_BACK:
 					System.out.println("FLYING BACK");	
-					if(AnnounceArrival(state)){
+					if(AnnounceArrival()){
 						happypilot = true;
 						//System.out.println("morri");
 					}

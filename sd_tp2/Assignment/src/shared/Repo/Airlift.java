@@ -54,8 +54,8 @@ public class Airlift {
      * @param id id of the passenger
      * @param PassengerState current state of the passenger
      */
-    public synchronized void DepartureairportUpdate( int id, PassengerState PassengerState){
-      this.PassengerStates[id]= PassengerState; 
+    public synchronized void setPassengerStatesUpdate(int id, String state){
+      this.PassengerStates[id]= state; 
       //reportStatus();
     }
     
@@ -63,15 +63,15 @@ public class Airlift {
      * Airlift's method. Update from departure airport.
      * @param inQueue queue from departure airport
      */
-    public synchronized void DepartureairportUpdate( Queue<Integer> inQueue){
-      this.inqueue= inQueue.size();
+    public synchronized void inQueueUpdate( int size){
+      this.inqueue= size;
     }
     /**
      * Airlift's method. Update from departure airport.
      * @param HostessState current state of the hostess
      */
-    public synchronized void DepartureairportUpdate( HostessState HostessState){
-      this.HostessState= HostessState; 
+    public synchronized void setHostessStateUpdate(String state){
+      this.HostessState= state; 
       //reportStatus();
     }
     
@@ -80,65 +80,36 @@ public class Airlift {
      * @param numberF number of the flight
      * @param PilotState current state of the pilot
      */
-    public synchronized void DepartureairportUpdate( int numberF, PilotState PilotState){
+    public synchronized void setPilotStateUpdate( int numberF, String state){
       this.numberF= numberF;
-      this.PilotState= PilotState;  
-      //reportStatus();
-    }
-    /**
-     * Airlift's method. Update from plane.
-     * @param inPlane queue from plane 
-     * @param id id of the passenger
-     * @param state current state of the passenger
-     */
-    public synchronized void PlaneUpdate( int id, PassengerState state) {
-      this.PassengerStates[id]= state; 
+      this.PilotState= state;  
       //reportStatus();
     }
     /**
      * Airlift's method. Update from plane.
      * @param PilotState current state of the pilot
      */
-    public synchronized void PlaneUpdate(PilotState PilotState) {
-      this.PilotState= PilotState; 
+    public synchronized void setPilotState2Update(String state) {
+      this.PilotState= state; 
       //reportStatus();
     }
     /**
      * Airlift's method. Update from plane.
      * @param inPlane queue from plane 
      */
-    public synchronized void PlaneUpdate(Queue<Integer> inPlane) {
-      this.inPlane= inPlane.size();
+    public synchronized void inPlaneUpdate(int size) {
+      this.inPlane= size;
     	//reportStatus();
     }
-    /**
-     * Airlift's method. Update from destination airport.
-     * @param inDestinationAirport queue from destination airport
-     * @param id id of the passenger
-     * @param state current state of the passenger
-     */
-    public synchronized void DestinationairportUpdate(int id, PassengerState state) {
-      this.PassengerStates[id]= state;  
-      //reportStatus();
-    }
     
-    public synchronized void DestinationairportUpdate( Queue<Integer> inDestinationAirport) {
-      this.atDestination= inDestinationAirport.size();
-    }
-    
-    /**
-     * Airlift's method. Update from destination airport.
-     * @param PilotState current state from the pilot
-     */
-    public synchronized void DestinationairportUpdate(PilotState PilotState) {
-      this.PilotState= PilotState;  
-      //reportStatus();
+    public synchronized void atDestinationUpdate(int size) {
+      this.atDestination=size;
     }
     
     /**
      *First log report.
      */
-    /** 
+    
     public void reportInitialStatus() {
         TextFile log = new TextFile(); 
 
@@ -168,6 +139,7 @@ public class Airlift {
     }
     /**
      *Report status to log
+     */
 private void reportStatus() {
         
 	TextFile log = new TextFile ();                      // instantiation of a text file handler
@@ -224,7 +196,7 @@ private void reportStatus() {
       }
     }
 
-public void reportBoarding ()
+public void reportBoarding()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
@@ -241,7 +213,7 @@ public void reportBoarding ()
 }
 
 
-public void reportCheck (int id)
+public void reportCheck(int id)
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
@@ -260,9 +232,10 @@ public void reportCheck (int id)
   /**
 *  Report that the flight has departed.
 *  Internal operation.
+*/
 
 
-public void reportDeparted ()
+public void reportDeparted()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
@@ -278,7 +251,7 @@ public void reportDeparted ()
       }
 }
 
-public void reportLDeparted ()
+public void reportLDeparted()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
@@ -297,9 +270,9 @@ public void reportLDeparted ()
 /**
 *  Report that the flight has arrived at arrival airport.
 *  Internal operation.
+*/
 
-
-public void reportArrived ()
+public void reportArrived()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
@@ -318,9 +291,9 @@ public void reportArrived ()
   /**
 *  Report that the flight is returning to the initial airport.
 *  Internal operation.
+*/
 
-
-public void reportreturning ()
+public void reportreturning()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
@@ -334,6 +307,6 @@ public void reportreturning ()
       { GenericIO.writelnString ("The operation of closing the file " + fileName + " failed!");
         System.exit (1);
       }
-}*/
+}
 
 }
