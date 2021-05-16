@@ -64,6 +64,11 @@ public class DestinationAirportMessage implements Serializable{
         this.id=id;
     }
 
+    public DestinationAirportMessage(int msg, boolean boolTemp) {
+        this.msg = msg;
+        this.boolTemp=boolTemp;
+    }
+
     public int getId(){
         return this.id;
     }

@@ -1,8 +1,8 @@
 package shared.DestinationAirport;
 
 import communication.ChannelClient;
-import static communication.ChannelPorts.NAME_GENERAL_REPOSITORY;
-import static communication.ChannelPorts.PORT_GENERAL_REPOSITORY;
+import static communication.ChannelPorts.NAME_PORT_REPO;
+import static communication.ChannelPorts.PORT_REPO;
 import entities.Pilot.States.*;
 import shared.Repo.Airlift;
 import entities.Passenger.States.*;
@@ -10,6 +10,7 @@ import entities.Hostess.States.*;
 import entities.Pilot.Interfaces.*;
 import entities.Passenger.Interfaces.*;
 import entities.Hostess.Interfaces.*;
+import messages.RepoMessages.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
      */
     public Destinationairport(){// 
         //this.airlift=airlift;
-        this.cc_repository = new ChannelClient(NAME_GENERAL_REPOSITORY, PORT_GENERAL_REPOSITORY);
+        this.cc_repository = new ChannelClient(NAME_PORT_REPO, PORT_REPO);
     }
      //Pilot
     /**
@@ -188,7 +189,7 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
 	private synchronized void reportCheck(int id) {
         RepoMessage response;
         startCommunication(cc_repository);
-        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_CHECK), id);
+        cc_repository.writeObject(new RepoMessage(RepoMessage.REPORT_CHECK, id));
         response = (RepoMessage) cc_repository.readObject();
         cc_repository.close(); 
     }

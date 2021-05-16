@@ -89,9 +89,9 @@ public class Passenger extends Thread{
 	}
 
 	private void Deboarding(){
-		DestinationMessage response;
+		DestinationAirportMessage response;
 		openChannel(cc_Destination,"Passenger" + this.id + ": Destination Airport");
-		cc_Destination.writeObject(new DestinationMessage(DestinationAirportMessage.DEBOARDING,this.id));
+		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.DEBOARDING,this.id));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
 	}
@@ -105,9 +105,9 @@ public class Passenger extends Thread{
 	}
 
 	private void atAirport(){
-		DestinationMessage response;
+		DestinationAirportMessage response;
 		openChannel(cc_Destination,"Passenger" + this.id + ": Destination Airport");
-		cc_Destination.writeObject(new DestinationMessage(DestinationAirportMessage.AT_AIRPORT,this.id));
+		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.AT_AIRPORT,this.id));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
 	}

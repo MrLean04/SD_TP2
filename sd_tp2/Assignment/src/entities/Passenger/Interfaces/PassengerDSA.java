@@ -13,5 +13,5 @@ import entities.Passenger.States.*;
 public interface PassengerDSA {
 	
     public void Deboarding(int id);
-    public void atAirport(int id,PassengerState state);
+    public void atAirport(int id);
 }

@@ -14,7 +14,7 @@ import entities.Passenger.States.*;
 public interface PassengerDA {
 
     public void travelToAirport();
-    public void waitInQueue(int id, PassengerState state);
+    public void waitInQueue(int id);
     public boolean showDocuments(int id);
     public boolean waitinQueueFlight();
     public void waitForNextFlightP(int id);

@@ -60,8 +60,8 @@ public class DepartureInterface {
                 break;
                 
             case DepartureAirportMessage.CHECK_AND_WAIT:
-                response = Departure.preparePassBoarding();
-                outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS, (boolean) response);
+                Departure.preparePassBoarding();
+                outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS);
                 break;
             
             case DepartureAirportMessage.PLANE_READY_TO_TAKE_OFF:

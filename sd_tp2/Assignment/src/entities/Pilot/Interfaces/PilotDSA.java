@@ -12,7 +12,7 @@ import entities.Pilot.States.*;
  * @author Leandro e João
  */
 public interface PilotDSA {
-    public boolean AnnounceArrival(PilotState state);
+    public boolean AnnounceArrival();
     public  boolean goBack();
     public boolean lastF();
     public void zeroCount();

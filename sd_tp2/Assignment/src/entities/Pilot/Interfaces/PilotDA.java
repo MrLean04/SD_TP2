@@ -12,9 +12,9 @@ import entities.Pilot.States.*;
  * @author Leandro e João
  */
 public interface PilotDA {
-	public void parkAtTransfer( PilotState PilotState);
-    public void readyForBoarding( PilotState PilotState);
-    public void WaitForBoarding( PilotState PilotState);
+	public void parkAtTransfer();
+    public void readyForBoarding();
+    public void WaitForBoarding();
     public void everyoneStops();
     public void last();
 }

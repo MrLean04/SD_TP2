@@ -11,6 +11,6 @@ import entities.Passenger.States.*;
  * @author Leandro e João
  */
 public interface PassengerP {
-	public boolean BoardThePlane(int id,PassengerState state);
+	public boolean BoardThePlane(int id);
 	public void WaitingForEndOfFlight();
 }

@@ -15,14 +15,14 @@ public interface HostessDA {
 
     public  void preparePassBoarding();
 
-        public  boolean checkAndWait(HostessState state);
+        public  boolean checkAndWait();
 
     
         public  boolean planeReadyToTakeoff(); 
 
     
-        public  void waitForNextFlightH(HostessState state);
+        public  void waitForNextFlightH();
         //public  boolean readyForCheck();
-        public boolean hostessJobDone( HostessState state);
-        public  boolean queueNotEmpty( HostessState state);
+        public boolean hostessJobDone();
+        public  boolean queueNotEmpty();
 }

@@ -13,9 +13,9 @@ import entities.Pilot.States.*;
  */
 public interface PilotP {
 	
-	public boolean WaitForAllInBoard(PilotState PilotState);
-	public void atDestinationPoint(PilotState state);
+	public boolean WaitForAllInBoard();
+	public void atDestinationPoint();
 	public  void lFly();
-	public void upd(PilotState PilotState);
+	public void upd();
 
 }

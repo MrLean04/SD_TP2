@@ -101,10 +101,15 @@ public class RepoMessage implements Serializable{
         this.id =id;
     }
 
+    public RepoMessage(int msg, String state) {
+        this.msg = msg;
+        this.state = state;
+    }
+
     public RepoMessage(int msg, int id , String state) {
         this.msg = msg;
         this.id =id;
-        this.state = state;
+        
     }
     public int getMessageType(){
         return this.msg;
@@ -114,7 +119,7 @@ public class RepoMessage implements Serializable{
         return this.id;
     }
 
-    public int getState(){
+    public String getState(){
         return this.state;
     }
 

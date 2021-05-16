@@ -67,6 +67,11 @@ public class PlaneMessage implements Serializable{
         this.id = id;
     }
 
+    public PlaneMessage(int msg, boolean boolTemp) {
+        this.msg = msg;
+        this.boolTemp=boolTemp;
+    }
+
     public int getMessageType(){
         return this.msg;
     }
