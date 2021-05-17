@@ -150,6 +150,28 @@ public class Pilot extends Thread{
 		cc_Plane.close();
 	}
 
+	private void endProgram() {
+        openChannel(cc_Departure, "Departure");
+        cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.END));
+        cc_Departure.readObject();
+        cc_Departure.close();
+        
+        openChannel(cc_Destination, "Destination");
+        cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.END));
+        cc_Destination.readObject();
+        cc_Destination.close();
+        
+        openChannel(cc_Plane, "Plane");
+        cc_Plane.writeObject(new PlaneMessage(PlaneMessage.END));
+        cc_Plane.readObject();
+        cc_Plane.close();
+        
+        //openChannel(cc_repository, "Repository");
+        //cc_repository.writeObject(new RepoMessage(RepoMessage.END));
+        //cc_repository.readObject();
+        //cc_repository.close();
+    }
+
 
 	
 
@@ -198,6 +220,7 @@ public class Pilot extends Thread{
 				case FLYING_BACK:
 					System.out.println("FLYING BACK");	
 					if(AnnounceArrival()){
+						endProgram();
 						happypilot = true;
 						//System.out.println("morri");
 					}
