@@ -1,5 +1,5 @@
 package entities.Pilot;
-import java.lang.ref.Cleaner;
+//import java.lang.ref.Cleaner;
 import java.util.*;
 
 import entities.Pilot.States.PilotState;

@@ -31,7 +31,7 @@
 #send "qwerty\r"
 
 # Passenger
-spawn scp -r ../../assignment/src sd405@l040101-ws07.ua.pt:.
+spawn scp -r ../assignment/src sd405@l040101-ws07.ua.pt:.
 expect "sd405@l040101-ws07.ua.pt's password:"
 send "qwerty\r"
 
