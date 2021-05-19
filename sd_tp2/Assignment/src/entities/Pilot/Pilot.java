@@ -8,6 +8,7 @@ import static communication.ChannelPorts.*;
 import messages.DepartureAirportMessages.*;
 import messages.DestinationAirportMessages.*;
 import messages.PlaneMessages.*;
+import messages.RepoMessages.*;
 /**
 *
 * @author Leandro e Jo�o
@@ -20,6 +21,7 @@ public class Pilot extends Thread{
 	private ChannelClient cc_Departure;
 	private ChannelClient cc_Plane;
 	private ChannelClient cc_Destination;
+	private ChannelClient cc_Repo;
     
 
 	/**
@@ -30,6 +32,7 @@ public class Pilot extends Thread{
 		this.cc_Departure = new ChannelClient(NAME_PORT_DEPARTURE, PORT_DEPARTURE);
 		this.cc_Plane = new ChannelClient(NAME_PORT_PLANE, PORT_PLANE);
 		this.cc_Destination = new ChannelClient(NAME_PORT_DESTINATION, PORT_DESTINATION);
+		this.cc_Repo = new ChannelClient(NAME_PORT_REPO, PORT_REPO);
 		//
 	}
 
@@ -166,10 +169,10 @@ public class Pilot extends Thread{
         cc_Plane.readObject();
         cc_Plane.close();
         
-        //openChannel(cc_repository, "Repository");
-        //cc_repository.writeObject(new RepoMessage(RepoMessage.END));
-        //cc_repository.readObject();
-        //cc_repository.close();
+        openChannel(cc_Repo, "Repository");
+        cc_Repo.writeObject(new RepoMessage(RepoMessage.END));
+        cc_Repo.readObject();
+        cc_Repo.close();
     }
 
 

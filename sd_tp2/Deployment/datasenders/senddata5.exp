@@ -1,0 +1,40 @@
+#!/usr/bin/expect -f
+
+# Repo
+#spawn scp -r ../../sd_tp2  sd0405@l040101-ws04.ua.pt:.
+#expect "sd0405@l040101-ws01.ua.pt's password:"
+#send "qwerty\r"
+
+# Departure
+#spawn scp -r ../../sd_tp2 sd0405@l040101-ws01.ua.pt:.
+#expect "sd0405@l040101-ws02.ua.pt's password:"
+#send "qwerty\r"
+
+# Plane
+#spawn scp -r ../../sd_tp2 sd0405@l040101-ws02.ua.pt:.
+#expect "sd0405@l040101-ws03.ua.pt's password:"
+#send "qwerty\r"
+
+# Destination
+#spawn scp -r ../../sd_tp2 sd0405@l040101-ws03.ua.pt:.
+#expect "sd0405@l040101-ws04.ua.pt's password:"
+#send "qwerty\r"
+
+# Pilot
+spawn scp -r ../../assignment/src sd0405@l040101-ws05.ua.pt:.
+expect "sd0405@l040101-ws05.ua.pt's password:"
+send "qwerty\r"
+
+# Hostess
+#spawn scp -r ../../sd_tp2 sd0405@l040101-ws06.ua.pt:.
+#expect "sd0405@l040101-ws06.ua.pt's password:"
+#send "qwerty\r"
+
+# Passenger
+#spawn scp -r ../../sd_tp2 sd0405@l040101-ws07.ua.pt:.
+#expect "sd0405@l040101-ws07.ua.pt's password:"
+#send "qwerty\r"
+
+
+interact
+sleep 5

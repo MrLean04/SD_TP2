@@ -1,0 +1,8 @@
+#!usr/bin/expect -f
+
+spawn scp -r sd0404@l040101-ws04.ua.pt:src/shared/Repo/Airlift.log ../Airlift.log
+expect "sd0404@l040101-ws04.ua.pt's password:"
+send "qwerty\r"
+
+interact 
+sleep 5

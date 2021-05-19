@@ -5,8 +5,8 @@ import java.util.Queue;
 import entities.Hostess.States.*;
 import entities.Passenger.States.*;
 import entities.Pilot.States.*;
-//import genclass.GenericIO;
-//import genclass.TextFile;
+import genclass.GenericIO;
+import genclass.TextFile;
 
 /**
  *
@@ -15,9 +15,9 @@ import entities.Pilot.States.*;
 public class Airlift {
 
     private int nPassengers;
-	private PassengerState[] PassengerStates;	
-	private PilotState PilotState;
-    private HostessState HostessState;
+    private String[] PassengerStates;	
+    private String PilotState;
+    private String HostessState;
     private int inqueue=0;
     private int inPlane=0;
     private int atDestination=0;
@@ -31,13 +31,13 @@ public class Airlift {
      */
     public Airlift(int nPassengers, String fileName) {
 		this.nPassengers = nPassengers;
-		PassengerStates = new PassengerState[nPassengers];
+		PassengerStates = new String[nPassengers];
     
         for (int i = 0; i < nPassengers; i++) {
-			PassengerStates[i] = PassengerState.values()[0];
+			PassengerStates[i] = "GTA";
 		}
-		PilotState = PilotState.values()[0];
-        HostessState = HostessState.values()[0];
+		PilotState = "ATG";
+    HostessState = "WFNF";
 		
         if ((fileName != null) && !("".equals(fileName))) {
             this.fileName = fileName;
@@ -46,6 +46,8 @@ public class Airlift {
     }
 
     public Airlift(){
+      this.nPassengers =21;
+      this.fileName = "Airlift.log";
       //
     }
     /**
@@ -55,7 +57,7 @@ public class Airlift {
      * @param PassengerState current state of the passenger
      */
     public synchronized void setPassengerStatesUpdate(int id, String state){
-      this.PassengerStates[id]= state; 
+      this.PassengerStates[id]=  state; 
       //reportStatus();
     }
     
@@ -151,40 +153,40 @@ private void reportStatus() {
         System.exit (1);
       }
     switch (PilotState)
-      { case AT_TRANSFER_GATE:   lineStatus += "ATG  ";
+      { case "ATG":   lineStatus += "ATG  ";
                                       break;
-        case READY_FOR_BOARDING: lineStatus += "RFB  ";
+        case "RFB": lineStatus += "RFB  ";
                                       break;
-        case WAIT_FOR_BOARDING: lineStatus += "WFB  ";
+        case "WFB": lineStatus += "WFB  ";
                                       break;
-        case FLYING_FORWARD: lineStatus += "FF  ";
+        case "FF": lineStatus += "FF  ";
                                       break;
-        case DEBOARDING: lineStatus += "D  ";
+        case "D": lineStatus += "D  ";
                                       break;
-        case FLYING_BACK: lineStatus += "FB  ";
+        case "FB": lineStatus += "FB  ";
                                       break;
       }
     
     switch (HostessState)
-      { case WAIT_FOR_NEXT_FLIGHT:   lineStatus += "WFNF  ";
+      { case "WFNF" :   lineStatus += "WFNF  ";
                                       break;
-        case WAIT_FOR_PASSENGER:   lineStatus += "WFP  ";
+        case "WFP":   lineStatus += "WFP  ";
                                       break;
-        case CHECK_PASSENGER:   lineStatus += "CP  ";
+        case "CP":   lineStatus += "CP  ";
                                       break;
-        case READY_TO_FLY:   lineStatus += "RTF  ";
+        case "RTF":   lineStatus += "RTF  ";
                                       break;
       }
     
     for (int i = 0; i < 21; i++)
       switch (PassengerStates[i])
-      { case GOING_TO_AIRPORT:   lineStatus += " GTA ";
+      { case "GTA":   lineStatus += " GTA ";
                                       break;
-        case IN_QUEUE:   lineStatus += " IQ  ";
+        case "IQ":   lineStatus += " IQ  ";
                                       break;
-        case IN_FLIGHT:   lineStatus += "IF  ";
+        case "IF":   lineStatus += "IF  ";
                                       break;
-        case AT_DESTINATION:   lineStatus += "AD  ";
+        case "AD":   lineStatus += "AD  ";
                                       break;
       }
     
