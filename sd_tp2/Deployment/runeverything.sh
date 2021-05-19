@@ -6,7 +6,7 @@ sh runnables/repo.sh &
 sh runnables/plane.sh &
 sh runnables/destination.sh &
 sh runnables/departure.sh &
-sh runnables/Pilot.sh &
+sh runnables/pilot.sh &
 sh runnables/passenger.sh &
 sh runnables/hostess.sh &
 
