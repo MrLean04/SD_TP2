@@ -6,7 +6,7 @@ import messages.PlaneMessages.PlaneMessageException;
  */
 public class PlaneInterface {
     private Plane plane;
-    private boolean status = false;
+    private boolean status = true;
         /**
      * PlaneInterface constructor
      * @param Plane Plane reference

@@ -8,7 +8,7 @@ import messages.DestinationAirportMessages.DestinationAirportMessageException;
  */
 public class DestinationInterface {
     private Destinationairport destination;
-    private boolean status = false;
+    private boolean status = true;
         /**
      * DestinationInterface constructor
      * @param Destinationairport Destinationairport reference

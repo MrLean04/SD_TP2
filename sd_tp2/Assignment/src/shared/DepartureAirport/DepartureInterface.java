@@ -6,7 +6,7 @@ import messages.DepartureAirportMessages.DepartureAirportMessageException;
  */
 public class DepartureInterface {
     private Departureairport Departure;
-    private boolean status = false;
+    private boolean status = true;
         /**
      * DepartureInterface constructor
      * @param Departureairport Departureairport reference

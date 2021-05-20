@@ -5,7 +5,7 @@ import messages.RepoMessages.*;
  */
 public class RepoInterface {
     private Airlift airlift;
-    private boolean status = false;
+    private boolean status = true;
         /**
      * RepoInterface constructor
      * @param Airlift Airlift reference
