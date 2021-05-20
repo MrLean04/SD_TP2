@@ -34,7 +34,7 @@ public class ChannelPorts {
     /**
      * Name of the REPO port
      */
-    public static final String NAME_PORT_REPO = "l0401101-ws04.ua.pt";
+    public static final String NAME_PORT_REPO = "l040101-ws04.ua.pt";
     /**
      * Name of the DEPARTURE port
      */
