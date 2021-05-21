@@ -5,6 +5,7 @@ import java.util.Queue;
 import entities.Hostess.States.*;
 import entities.Passenger.States.*;
 import entities.Pilot.States.*;
+import genclass.FileOp;
 import genclass.GenericIO;
 import genclass.TextFile;
 
@@ -48,6 +49,10 @@ public class Airlift {
     public Airlift(){
       this.nPassengers =21;
       this.fileName = "Airlift.log";
+
+      if(FileOp.exists(".", fileName)) {
+        FileOp.deleteFile(".", fileName);
+    }
       //
     }
     /**
@@ -118,7 +123,7 @@ public class Airlift {
         TextFile log = new TextFile(); 
 
         //fileName = "Airlift.log";
-        if (!log.openForWriting("./src", fileName)) {
+        if (!log.openForWriting(".", fileName)) {
             GenericIO.writelnString("A opera�ao de cria�ao do ficheiro " + fileName + " falhou!");
             System.exit(1);
         }
@@ -150,7 +155,7 @@ private void reportStatus() {
 
     String lineStatus = "";                              // state line to be printed
 
-    if (!log.openForAppending("./src", fileName))
+    if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of opening for appending the file " + fileName + " failed!");
         System.exit (1);
       }
@@ -204,7 +209,7 @@ public void reportBoarding()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
-  if (!log.openForAppending("./src", fileName))
+  if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
         System.exit (1);
       }
@@ -221,7 +226,7 @@ public void reportCheck(int id)
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
-  if (!log.openForAppending("./src", fileName))
+  if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
         System.exit (1);
       }
@@ -243,7 +248,7 @@ public void reportDeparted()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
-  if (!log.openForAppending("./src", fileName))
+  if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
         System.exit (1);
       }
@@ -259,7 +264,7 @@ public void reportLDeparted()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
-  if (!log.openForAppending("./src", fileName))
+  if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
         System.exit (1);
       }
@@ -280,7 +285,7 @@ public void reportArrived()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
-  if (!log.openForAppending("./src", fileName))
+  if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
         System.exit (1);
       }
@@ -301,7 +306,7 @@ public void reportreturning()
 {
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
-  if (!log.openForAppending("./src", fileName))
+  if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
         System.exit (1);
       }
