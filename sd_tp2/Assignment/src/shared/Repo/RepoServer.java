@@ -7,7 +7,7 @@ import static communication.ChannelPorts.PORT_REPO;
  */
 public class RepoServer {
     /**
-     * Server running the DestinationAirport.
+     * Server running the Repo.
      * @param args -
      */    
     public static void main(String[] args) {

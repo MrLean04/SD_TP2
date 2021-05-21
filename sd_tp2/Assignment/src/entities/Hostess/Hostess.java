@@ -1,4 +1,5 @@
 package entities.Hostess;
+
 //import java.lang.ref.Cleaner;
 import java.util.*;
 
@@ -10,22 +11,21 @@ import messages.DestinationAirportMessages.*;
 import messages.PlaneMessages.*;
 
 /**
-*
-* @author Leandro e Jo�o
-*/
-public class Hostess extends Thread{
+ *
+ * @author Leandro e Jo�o
+ */
+public class Hostess extends Thread {
 
-    private HostessState state;
-	boolean happyhostess=false;
+	private HostessState state;
+	boolean happyhostess = false;
 	private ChannelClient cc_Departure;
 	private ChannelClient cc_Plane;
 	private ChannelClient cc_Destination;
-    
 
 	/**
 	 * Hostess's constructor.
 	 *
-	 */	 
+	 */
 	public Hostess() {
 		this.cc_Departure = new ChannelClient(NAME_PORT_DEPARTURE, PORT_DEPARTURE);
 		this.cc_Plane = new ChannelClient(NAME_PORT_PLANE, PORT_PLANE);
@@ -33,92 +33,118 @@ public class Hostess extends Thread{
 		//
 	}
 
-	private void openChannel(ChannelClient cc, String name){
-		while(!cc.open()){
+	/**
+	 * Open Communication Channel method
+	 *
+	 * @param cc   Channel Client
+	 * @param name Client Name
+	 */
+	private void openChannel(ChannelClient cc, String name) {
+		while (!cc.open()) {
 			System.out.println(name + " not open.");
-			try{
+			try {
 				Thread.sleep(1000);
-			}catch(Exception ex){}
+			} catch (Exception ex) {
+			}
 		}
 	}
 
-	private void preparePassBoarding(){
+	/**
+	 * Hostess's method. Send Message to Departure Interface
+	 *
+	 */
+	private void preparePassBoarding() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Hostess" + ": Departure Airport");
+		openChannel(cc_Departure, "Hostess" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.PREPARE_PASS_BOARDING));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 	}
 
-	private boolean checkAndWait(){
+	/**
+	 * Hostess's method. Send Message to Departure Interface
+	 *
+	 */
+	private boolean checkAndWait() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Hostess" + ": Departure Airport");
+		openChannel(cc_Departure, "Hostess" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.CHECK_AND_WAIT));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 		return response.getBoolResponse();
 	}
 
-	private boolean planeReadyToTakeoff(){
+	/**
+	 * Hostess's method. Send Message to Departure Interface
+	 *
+	 */
+	private boolean planeReadyToTakeoff() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Hostess" + ": Departure Airport");
+		openChannel(cc_Departure, "Hostess" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.PLANE_READY_TO_TAKE_OFF));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 		return response.getBoolResponse();
 	}
 
-	private boolean hostessJobDone(){
+	/**
+	 * Hostess's method. Send Message to Departure Interface
+	 *
+	 */
+	private boolean hostessJobDone() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Hostess" + ": Departure Airport");
+		openChannel(cc_Departure, "Hostess" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.HOSTESS_JOB_DONE));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 		return response.getBoolResponse();
 	}
 
-	private void waitForNextFlightH(){
+	/**
+	 * Hostess's method. Send Message to Departure Interface
+	 *
+	 */
+	private void waitForNextFlightH() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Hostess" + ": Departure Airport");
+		openChannel(cc_Departure, "Hostess" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.WAIT_FOR_NEXT_FLIGHT_H));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 	}
 
-
-
 	@Override
 	public void run() {
 		this.setHostessState(HostessState.WAIT_FOR_PASSENGER);
 		while (!happyhostess) {
-			switch (this.state) {				
-				case  WAIT_FOR_PASSENGER:
-					System.out.println("WAIT_FOR_PASSENGER");					
-					//if(queueNotEmpty()){
-						preparePassBoarding();
-						setHostessState(HostessState.CHECK_PASSENGER );
-					//}
+			switch (this.state) {
+				case WAIT_FOR_PASSENGER:
+					System.out.println("WAIT_FOR_PASSENGER");
+					// if(queueNotEmpty()){
+					preparePassBoarding();
+					setHostessState(HostessState.CHECK_PASSENGER);
+					// }
 					break;
-				
-				case  CHECK_PASSENGER:
+
+				case CHECK_PASSENGER:
 					System.out.println("CHECK_PASSENGER");
-					if(!checkAndWait())
-						setHostessState(HostessState.WAIT_FOR_PASSENGER );
-					if (planeReadyToTakeoff()){					
-						setHostessState(HostessState.READY_TO_FLY );
+					if (!checkAndWait())
+						setHostessState(HostessState.WAIT_FOR_PASSENGER);
+					if (planeReadyToTakeoff()) {
+						setHostessState(HostessState.READY_TO_FLY);
 					}
 					break;
-					
-				case   READY_TO_FLY:
-					System.out.println("READY_TO_FLY");		
-					
-					if(!hostessJobDone()){
-						setHostessState(HostessState.WAIT_FOR_NEXT_FLIGHT );
-					} else happyhostess = true;
-					
+
+				case READY_TO_FLY:
+					System.out.println("READY_TO_FLY");
+
+					if (!hostessJobDone()) {
+						setHostessState(HostessState.WAIT_FOR_NEXT_FLIGHT);
+					} else
+						happyhostess = true;
+
 					break;
-					
-				case  WAIT_FOR_NEXT_FLIGHT:
+
+				case WAIT_FOR_NEXT_FLIGHT:
 					System.out.println("WAIT_FOR_NEXT_FLIGHT");
 					waitForNextFlightH();
 					setHostessState(HostessState.WAIT_FOR_PASSENGER);
@@ -127,8 +153,7 @@ public class Hostess extends Thread{
 		}
 	}
 
-
-    /**
+	/**
 	 * Hostess's method. Change state of hostess and report status to log.
 	 *
 	 * @param state state of hostess
@@ -150,4 +175,3 @@ public class Hostess extends Thread{
 	}
 
 }
-

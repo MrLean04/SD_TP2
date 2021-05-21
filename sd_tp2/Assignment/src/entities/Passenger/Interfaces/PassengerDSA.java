@@ -6,12 +6,24 @@
 package entities.Passenger.Interfaces;
 
 import entities.Passenger.States.*;
+
 /**
  *
  * @author Leandro e João
  */
 public interface PassengerDSA {
-	
+
+    /**
+     * Passenger's method. Passenger removes himself from the inDeboarding queue.
+     * 
+     * @param id id of the passenger
+     */
     public void Deboarding(int id);
+
+    /**
+     * Pilot's method. Pilot adds a passengers to the destination airport queues.
+     * 
+     * @param id id of the passenger
+     */
     public void atAirport(int id);
 }

@@ -1,4 +1,5 @@
 package entities.Pilot;
+
 //import java.lang.ref.Cleaner;
 import java.util.*;
 
@@ -9,25 +10,25 @@ import messages.DepartureAirportMessages.*;
 import messages.DestinationAirportMessages.*;
 import messages.PlaneMessages.*;
 import messages.RepoMessages.*;
+
 /**
-*
-* @author Leandro e Jo�o
-*/
+ *
+ * @author Leandro e Jo�o
+ */
 
-public class Pilot extends Thread{
+public class Pilot extends Thread {
 
-    private PilotState state;	
-	private boolean happypilot=false;
+	private PilotState state;
+	private boolean happypilot = false;
 	private ChannelClient cc_Departure;
 	private ChannelClient cc_Plane;
 	private ChannelClient cc_Destination;
 	private ChannelClient cc_Repo;
-    
 
 	/**
 	 * Pilot's constructor.
 	 *
-	 */  
+	 */
 	public Pilot() {
 		this.cc_Departure = new ChannelClient(NAME_PORT_DEPARTURE, PORT_DEPARTURE);
 		this.cc_Plane = new ChannelClient(NAME_PORT_PLANE, PORT_PLANE);
@@ -36,218 +37,273 @@ public class Pilot extends Thread{
 		//
 	}
 
-	private void openChannel(ChannelClient cc, String name){
-		while(!cc.open()){
+	/**
+	 * Open Communication Channel method
+	 *
+	 * @param cc   Channel Client
+	 * @param name Client Name
+	 */
+	private void openChannel(ChannelClient cc, String name) {
+		while (!cc.open()) {
 			System.out.println(name + " not open.");
-			try{
+			try {
 				Thread.sleep(1000);
-			}catch(Exception ex){}
+			} catch (Exception ex) {
+			}
 		}
 	}
 
-	private void zeroCount(){
+	/**
+	 * Pilot's method. Send Message to Destination Interface
+	 *
+	 */
+	private void zeroCount() {
 		DestinationAirportMessage response;
-		openChannel(cc_Destination,"Pilot" + ": Destination Airport");
+		openChannel(cc_Destination, "Pilot" + ": Destination Airport");
 		cc_Destination.writeObject(new DepartureAirportMessage(DestinationAirportMessage.ZERO_COUNT));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
 	}
 
-	private void  parkAtTransfer(){
+	/**
+	 * Pilot's method. Send Message to Departure Interface
+	 *
+	 */
+	private void parkAtTransfer() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Pilot" + ": Departure Airport");
+		openChannel(cc_Departure, "Pilot" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.PARK_AT_TRANSFER));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 	}
 
-	private void  readyForBoarding(){
+	/**
+	 * Pilot's method. Send Message to Departure Interface
+	 *
+	 */
+	private void readyForBoarding() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Pilot" + ": Departure Airport");
+		openChannel(cc_Departure, "Pilot" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.READY_FOR_BOARDING));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 	}
 
-	private void  WaitForBoarding(){
+	/**
+	 * Pilot's method. Send Message to Departure Interface
+	 *
+	 */
+	private void WaitForBoarding() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Pilot" + ": Departure Airport");
+		openChannel(cc_Departure, "Pilot" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.WAIT_FOR_BOARDING));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 	}
 
-	private boolean WaitForAllInBoard(){
+	/**
+	 * Pilot's method. Send Message to Plane Interface
+	 *
+	 */
+	private boolean WaitForAllInBoard() {
 		PlaneMessage response;
-		openChannel(cc_Plane,"Pilot" + ": Plane");
+		openChannel(cc_Plane, "Pilot" + ": Plane");
 		cc_Plane.writeObject(new PlaneMessage(PlaneMessage.WAIT_FOR_ALL_IN_BOARD));
 		response = (PlaneMessage) cc_Plane.readObject();
 		cc_Plane.close();
-		return response.getBoolResponse(); 
+		return response.getBoolResponse();
 	}
 
-	private void upd(){
+	/**
+	 * Pilot's method. Send Message to Plane Interface
+	 *
+	 */
+	private void upd() {
 		PlaneMessage response;
-		openChannel(cc_Plane,"Pilot" + ": Plane");
+		openChannel(cc_Plane, "Pilot" + ": Plane");
 		cc_Plane.writeObject(new PlaneMessage(PlaneMessage.UPD));
 		response = (PlaneMessage) cc_Plane.readObject();
 		cc_Plane.close();
 	}
 
-	private void atDestinationPoint(){
+	/**
+	 * Pilot's method. Send Message to Plane Interface
+	 *
+	 */
+	private void atDestinationPoint() {
 		PlaneMessage response;
-		openChannel(cc_Plane,"Pilot" + ": Plane");
+		openChannel(cc_Plane, "Pilot" + ": Plane");
 		cc_Plane.writeObject(new PlaneMessage(PlaneMessage.AT_DESTINATION_POINT));
 		response = (PlaneMessage) cc_Plane.readObject();
 		cc_Plane.close();
 	}
 
-	private void everyoneStops(){
+	/**
+	 * Pilot's method. Send Message to Departure Interface
+	 *
+	 */
+	private void everyoneStops() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Pilot" + ": Departure Airport");
+		openChannel(cc_Departure, "Pilot" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.EVERYONE_STOPS));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 	}
 
-	private boolean AnnounceArrival(){
+	/**
+	 * Pilot's method. Send Message to Destination Interface
+	 *
+	 */
+	private boolean AnnounceArrival() {
 		DestinationAirportMessage response;
-		openChannel(cc_Departure,"Pilot" + ": Destination Airport");
+		openChannel(cc_Departure, "Pilot" + ": Destination Airport");
 		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.ANNOUNCE_ARRIVAL));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
 		return response.getBoolResponse();
 	}
 
-	private boolean goBack(){
+	/**
+	 * Pilot's method. Send Message to Destination Interface
+	 *
+	 */
+	private boolean goBack() {
 		DestinationAirportMessage response;
-		openChannel(cc_Departure,"Pilot" + ": Destination Airport");
+		openChannel(cc_Departure, "Pilot" + ": Destination Airport");
 		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.GO_BACK));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
 		return response.getBoolResponse();
 	}
 
-	private boolean lastF(){
+	/**
+	 * Pilot's method. Send Message to Destination Interface
+	 *
+	 */
+	private boolean lastF() {
 		DestinationAirportMessage response;
-		openChannel(cc_Departure,"Pilot" + ": Destination Airport");
+		openChannel(cc_Departure, "Pilot" + ": Destination Airport");
 		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.LASTF));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
 		return response.getBoolResponse();
 	}
 
-	private void last(){
+	/**
+	 * Pilot's method. Send Message to Departure Interface
+	 *
+	 */
+	private void last() {
 		DepartureAirportMessage response;
-		openChannel(cc_Departure,"Pilot" + ": Departure Airport");
+		openChannel(cc_Departure, "Pilot" + ": Departure Airport");
 		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.LAST));
 		response = (DepartureAirportMessage) cc_Departure.readObject();
 		cc_Departure.close();
 	}
 
-	private void lFly(){
+	/**
+	 * Pilot's method. Send Message to Plane Interface
+	 *
+	 */
+	private void lFly() {
 		PlaneMessage response;
-		openChannel(cc_Plane,"Pilot" + ": Plane");
+		openChannel(cc_Plane, "Pilot" + ": Plane");
 		cc_Plane.writeObject(new PlaneMessage(PlaneMessage.LFLIGHT));
 		response = (PlaneMessage) cc_Plane.readObject();
 		cc_Plane.close();
 	}
 
+	/**
+	 * Pilot's method. Send Message to End Program
+	 *
+	 */
 	private void endProgram() {
-        openChannel(cc_Departure, "Departure");
-        cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.END));
-        cc_Departure.readObject();
-        cc_Departure.close();
-        
-        openChannel(cc_Destination, "Destination");
-        cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.END));
-        cc_Destination.readObject();
-        cc_Destination.close();
-        
-        openChannel(cc_Plane, "Plane");
-        cc_Plane.writeObject(new PlaneMessage(PlaneMessage.END));
-        cc_Plane.readObject();
-        cc_Plane.close();
-        
-        openChannel(cc_Repo, "Repository");
-        cc_Repo.writeObject(new RepoMessage(RepoMessage.END));
-        cc_Repo.readObject();
-        cc_Repo.close();
-    }
+		openChannel(cc_Departure, "Departure");
+		cc_Departure.writeObject(new DepartureAirportMessage(DepartureAirportMessage.END));
+		cc_Departure.readObject();
+		cc_Departure.close();
 
+		openChannel(cc_Destination, "Destination");
+		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.END));
+		cc_Destination.readObject();
+		cc_Destination.close();
 
-	
+		openChannel(cc_Plane, "Plane");
+		cc_Plane.writeObject(new PlaneMessage(PlaneMessage.END));
+		cc_Plane.readObject();
+		cc_Plane.close();
 
-
-
+		openChannel(cc_Repo, "Repository");
+		cc_Repo.writeObject(new RepoMessage(RepoMessage.END));
+		cc_Repo.readObject();
+		cc_Repo.close();
+	}
 
 	@Override
 	public void run() {
 		this.setPilotState(PilotState.AT_TRANSFER_GATE);
 		while (!happypilot) {
 			switch (this.state) {
-				case  AT_TRANSFER_GATE:
+				case AT_TRANSFER_GATE:
 					System.out.println("AT_TRANSFER_GATE ");
 					zeroCount();
-					parkAtTransfer();	
+					parkAtTransfer();
 					setPilotState(PilotState.READY_FOR_BOARDING);
 					break;
 
-				case  READY_FOR_BOARDING:
-					System.out.println(" READY_FOR_BOARDING ");	
+				case READY_FOR_BOARDING:
+					System.out.println(" READY_FOR_BOARDING ");
 					readyForBoarding();
-					WaitForBoarding();	
-					setPilotState(PilotState.WAIT_FOR_BOARDING );
+					WaitForBoarding();
+					setPilotState(PilotState.WAIT_FOR_BOARDING);
 					break;
-				
-				case  WAIT_FOR_BOARDING:
+
+				case WAIT_FOR_BOARDING:
 					System.out.println(" WAIT_FOR_BOARDING ");
-					if(WaitForAllInBoard()) {
-						setPilotState(PilotState.FLYING_FORWARD );
+					if (WaitForAllInBoard()) {
+						setPilotState(PilotState.FLYING_FORWARD);
 					}
 					break;
-					
-				case  FLYING_FORWARD:
+
+				case FLYING_FORWARD:
 					System.out.println("FLYING_FORWARD ");
 					upd();
-					setPilotState(PilotState.DEBOARDING );
+					setPilotState(PilotState.DEBOARDING);
 					break;
-				
-				case  DEBOARDING:
+
+				case DEBOARDING:
 					System.out.println("DEBOARDING ");
 					atDestinationPoint();
 					everyoneStops();
-					setPilotState(PilotState.FLYING_BACK );
+					setPilotState(PilotState.FLYING_BACK);
 					break;
-				
+
 				case FLYING_BACK:
-					System.out.println("FLYING BACK");	
-					if(AnnounceArrival()){
+					System.out.println("FLYING BACK");
+					if (AnnounceArrival()) {
 						endProgram();
 						happypilot = true;
-						//System.out.println("morri");
+						// System.out.println("morri");
 					}
-					
-					else{
-						if(goBack()) {
-							if(lastF()) {
+
+					else {
+						if (goBack()) {
+							if (lastF()) {
 								last();
 								System.out.println("last f");
 								lFly();
 							}
-						
-							
-						setPilotState(PilotState.AT_TRANSFER_GATE);
+
+							setPilotState(PilotState.AT_TRANSFER_GATE);
 						}
 					}
-					
+
 					break;
 			}
 		}
 	}
 
-
-    /**
+	/**
 	 * Pilot's method. Change state of pilot and report status to log.
 	 *
 	 * @param state state of Pilot

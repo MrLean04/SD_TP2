@@ -21,6 +21,10 @@ public class PlaneProxyClient extends Thread{
         this.planeInterface = planeInterface;
     }
     
+    /**
+     * Plane proxy run.
+     * 
+     */
     @Override
     public void run() {
         PlaneMessage in;

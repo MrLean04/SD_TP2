@@ -7,10 +7,10 @@ import java.io.Serializable;
  * @author Leandro e João
  */
 
-public class PlaneMessage implements Serializable{
-    
+public class PlaneMessage implements Serializable {
+
     private int msg = -1;
-    
+
     /**
      * END message.
      */
@@ -55,33 +55,58 @@ public class PlaneMessage implements Serializable{
     private boolean boolTemp;
 
     /**
-     * Constructor of LoungeMessage.
-     * @param msg type of message received 
+     * Constructor of PlaneMessage.
+     * 
+     * @param msg type of message received
      */
     public PlaneMessage(int msg) {
         this.msg = msg;
     }
 
+    /**
+     * Constructor of PlaneMessage.
+     * 
+     * @param msg type of message received
+     * @param id  passenger id received
+     */
     public PlaneMessage(int msg, int id) {
         this.msg = msg;
         this.id = id;
     }
 
+    /**
+     * Constructor of PlaneMessage.
+     * 
+     * @param msg      type of message received
+     * @param boolTemp Boolean response received
+     */
     public PlaneMessage(int msg, boolean boolTemp) {
         this.msg = msg;
-        this.boolTemp=boolTemp;
+        this.boolTemp = boolTemp;
     }
 
-    public int getMessageType(){
+    /**
+     * 
+     * @return a int representing the type of message
+     */
+    public int getMessageType() {
         return this.msg;
     }
 
-    public int getId(){
+    /**
+     * 
+     * @return a int representing the Passenger id
+     */
+    public int getId() {
         return this.id;
     }
 
-    public boolean getBoolResponse(){
+    /**
+     * 
+     * @return a boolean representing the boolean response from Departure region
+     */
+    public boolean getBoolResponse() {
         return this.boolTemp;
     }
-    
+
 }

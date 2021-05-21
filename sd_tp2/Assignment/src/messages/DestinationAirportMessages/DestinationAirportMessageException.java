@@ -4,7 +4,7 @@ public class DestinationAirportMessageException extends RuntimeException {
     private DestinationAirportMessage msg;
 
     /**
-     * Instantiation of Lounge message exception.
+     * Instantiation of Destination message exception.
      * @param error text with error
      * @param msg message with exception
      */ 
@@ -14,7 +14,7 @@ public class DestinationAirportMessageException extends RuntimeException {
     }
 
     /**
-     * Obtaining the Lounge message with error.
+     * Obtaining the Destination message with error.
      * @return message
      */
     public DestinationAirportMessage getMsg() {

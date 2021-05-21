@@ -13,16 +13,45 @@ import entities.Hostess.States.*;
  */
 public interface HostessDA {
 
-    public  void preparePassBoarding();
+    /**
+     * Hostess's method. Hostess checks if pilot is at the transfer gate and sets
+     * the checking documents flag to true.
+     */
+    public void preparePassBoarding();
 
-        public  boolean checkAndWait();
+    /**
+     * Hostess's method. Hostess checks the documents of a passenger.
+     * 
+     * @return a boolean representing if a passenger was checked
+     */
+    public boolean checkAndWait();
 
+    /**
+     * Hostess's method. Hostess checks if the plane is ready to fly and if so
+     * updates some variables.
+     * 
+     * @return a boolean representing if the plane is ready to fly
+     */
+    public boolean planeReadyToTakeoff();
+
+    /**
+     * Hostess's method. Hostess waits for the plane to come back from its flight.
+     */
+    public void waitForNextFlightH();
+
+    // public boolean readyForCheck();
     
-        public  boolean planeReadyToTakeoff(); 
+    /**
+     * Hostess's method. Hostess checks if there's more passengers to check.
+     * 
+     * @return a boolean representing if the hostess job is done
+     */
+    public boolean hostessJobDone();
 
-    
-        public  void waitForNextFlightH();
-        //public  boolean readyForCheck();
-        public boolean hostessJobDone();
-        public  boolean queueNotEmpty();
+    /**
+     * Hostess's method. Retrieves if the airport queue is not empty.
+     * 
+     * @return a boolean representing if the queue is not empty
+     */
+    public boolean queueNotEmpty();
 }

@@ -7,10 +7,10 @@ import java.io.Serializable;
  * @author Leandro e João
  */
 
-public class DestinationAirportMessage implements Serializable{
+public class DestinationAirportMessage implements Serializable {
 
     private int msg = -1;
-    
+
     /**
      * END message.
      */
@@ -52,33 +52,60 @@ public class DestinationAirportMessage implements Serializable{
 
     private int id;
     private boolean boolTemp;
+
     /**
-     * Constructor of LoungeMessage.
-     * @param msg type of message received 
+     * Constructor of DestinationMessage.
+     * 
+     * @param msg type of message received
      */
     public DestinationAirportMessage(int msg) {
         this.msg = msg;
     }
+
+    /**
+     * Constructor of DestinationMessage.
+     * 
+     * @param msg type of message received
+     * @param id  passenger id received
+     */
     public DestinationAirportMessage(int msg, int id) {
         this.msg = msg;
-        this.id=id;
+        this.id = id;
     }
 
+    /**
+     * Constructor of DestinationMessage.
+     * 
+     * @param msg      type of message received
+     * @param boolTemp Boolean response received
+     */
     public DestinationAirportMessage(int msg, boolean boolTemp) {
         this.msg = msg;
-        this.boolTemp=boolTemp;
+        this.boolTemp = boolTemp;
     }
 
-    public int getId(){
+    /**
+     * 
+     * @return a int representing the Passenger id
+     */
+    public int getId() {
         return this.id;
     }
 
-    public boolean getBoolResponse(){
+    /**
+     * 
+     * @return a boolean representing the boolean response from Departure region
+     */
+    public boolean getBoolResponse() {
         return this.boolTemp;
     }
 
-    public int getMessageType(){
+    /**
+     * 
+     * @return a int representing the type of message
+     */
+    public int getMessageType() {
         return this.msg;
     }
-    
+
 }

@@ -7,10 +7,10 @@ import java.io.Serializable;
  * @author Leandro e João
  */
 
-public class DepartureAirportMessage implements Serializable{
+public class DepartureAirportMessage implements Serializable {
 
     private int msg = -1;
-    
+
     /**
      * END message.
      */
@@ -44,7 +44,7 @@ public class DepartureAirportMessage implements Serializable{
     /**
      * QUEUE_NOT_EMPTY message
      */
-    //public static final int QUEUE_NOT_EMPTY = 6;
+    // public static final int QUEUE_NOT_EMPTY = 6;
 
     /**
      * CHECK_AND_WAIT message
@@ -54,89 +54,114 @@ public class DepartureAirportMessage implements Serializable{
     /**
      * PLANE_READY_TO_TAKE_OFF message
      */
-    public static final int  PLANE_READY_TO_TAKE_OFF = 8;
+    public static final int PLANE_READY_TO_TAKE_OFF = 8;
 
     /**
      * EVERYONE_STOPS message
      */
-    public static final int  EVERYONE_STOPS = 9;
+    public static final int EVERYONE_STOPS = 9;
 
     /**
      * WAIT_FOR_NEXT_FLIGHT_H message
      */
-    public static final int  WAIT_FOR_NEXT_FLIGHT_H = 10;
+    public static final int WAIT_FOR_NEXT_FLIGHT_H = 10;
 
     /**
      * HOSTESS_JOB_DONE message
      */
-    public static final int  HOSTESS_JOB_DONE = 11;
+    public static final int HOSTESS_JOB_DONE = 11;
 
     /**
      * TRAVEL_TO_AIRPORT message
      */
-    public static final int  TRAVEL_TO_AIRPORT = 12;
+    public static final int TRAVEL_TO_AIRPORT = 12;
 
     /**
      * WAIT_IN_QUEUE_FLIGHT message
      */
-    public static final int  WAIT_IN_QUEUE_FLIGHT = 13;
+    public static final int WAIT_IN_QUEUE_FLIGHT = 13;
 
     /**
      * WAIT_IN_QUEUE message
      */
-    public static final int  WAIT_IN_QUEUE = 14;
-    
+    public static final int WAIT_IN_QUEUE = 14;
+
     /**
      * SHOW_DOCUMENTS message
      */
-    public static final int  SHOW_DOCUMENTS = 15;
+    public static final int SHOW_DOCUMENTS = 15;
 
     /**
      * WAIT_FOR_NEXT_FLIGHT_P message
      */
-    public static final int  WAIT_FOR_NEXT_FLIGHT_P = 16;
+    public static final int WAIT_FOR_NEXT_FLIGHT_P = 16;
 
     /**
      * GET_NUMBER_F message
      */
-    public static final int  GET_NUMBER_F = 17;
+    public static final int GET_NUMBER_F = 17;
 
     /**
      * SUCCESS message.
      */
     public static final int SUCCESS = 100;
 
-
     private int id;
     private boolean boolTemp;
+
     /**
-     * Constructor of LoungeMessage.
-     * @param msg type of message received 
+     * Constructor of DepartureMessage.
+     * 
+     * @param msg type of message received
      */
     public DepartureAirportMessage(int msg) {
         this.msg = msg;
     }
 
+    /**
+     * Constructor of DepartureMessage.
+     * 
+     * @param msg type of message received
+     * @param id  passenger id received
+     */
     public DepartureAirportMessage(int msg, int id) {
         this.msg = msg;
-        this.id=id;
+        this.id = id;
     }
 
+    /**
+     * Constructor of DepartureMessage.
+     * 
+     * @param msg      type of message received
+     * @param boolTemp Boolean response received
+     */
     public DepartureAirportMessage(int msg, boolean boolTemp) {
         this.msg = msg;
-        this.boolTemp= boolTemp;
+        this.boolTemp = boolTemp;
     }
 
-    public int getId(){
+    /**
+     * 
+     * @return a int representing the Passenger id
+     */
+    public int getId() {
         return this.id;
     }
 
-    public boolean getBoolResponse(){
+    /**
+     * 
+     * @return a boolean representing the boolean response from Departure region
+     */
+    public boolean getBoolResponse() {
         return this.boolTemp;
     }
 
-    public int getMessageType(){
+    /**
+     * 
+     * @return a int representing the type of message
+     */
+    public int getMessageType() {
         return this.msg;
     }
-    
+
 }

@@ -7,7 +7,7 @@ import static communication.ChannelPorts.PORT_PLANE;;
  */
 public class PlaneServer {
     /**
-     * Server running the DestinationAirport.
+     * Server running the Plane.
      * @param args -
      */    
     public static void main(String[] args) {

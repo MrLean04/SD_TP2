@@ -5,7 +5,7 @@ public class PlaneMessageException extends RuntimeException {
     private PlaneMessage msg;
 
     /**
-     * Instantiation of Lounge message exception.
+     * Instantiation of Plane message exception.
      * @param error text with error
      * @param msg message with exception
      */ 
@@ -15,7 +15,7 @@ public class PlaneMessageException extends RuntimeException {
     }
 
     /**
-     * Obtaining the Lounge message with error.
+     * Obtaining the Plane message with error.
      * @return message
      */
     public PlaneMessage getMsg() {

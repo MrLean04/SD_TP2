@@ -1,4 +1,5 @@
 package messages.RepoMessages;
+
 import java.io.Serializable;
 
 /**
@@ -6,9 +7,9 @@ import java.io.Serializable;
  * @author Leandro e João
  */
 
-public class RepoMessage implements Serializable{      
+public class RepoMessage implements Serializable {
     private int msg = -1;
-    
+
     /**
      * END message.
      */
@@ -27,7 +28,7 @@ public class RepoMessage implements Serializable{
     /**
      * SET_PILOT_STATE message.
      */
-    public static final int SET_PILOT_STATE= 3;
+    public static final int SET_PILOT_STATE = 3;
 
     /**
      * SET_HOSTESS_STATE message.
@@ -67,7 +68,7 @@ public class RepoMessage implements Serializable{
     /**
      * REPORT_L_DEPARTED message.
      */
-    public static final int REPORT_L_DEPARTED= 11;
+    public static final int REPORT_L_DEPARTED = 11;
 
     /**
      * REPORT_ARRIVED message.
@@ -89,42 +90,79 @@ public class RepoMessage implements Serializable{
     private String state;
 
     /**
-     * Constructor of LoungeMessage.
-     * @param msg type of message received 
+     * Constructor of RepoMessage.
+     * 
+     * @param msg type of message received
      */
     public RepoMessage(int msg) {
         this.msg = msg;
     }
 
+    /**
+     * Constructor of RepoMessage.
+     * 
+     * @param msg type of message received
+     * @param id  passenger id received
+     */
     public RepoMessage(int msg, int id) {
         this.msg = msg;
-        this.id =id;
+        this.id = id;
     }
 
+    /**
+     * Constructor of RepoMessage.
+     * 
+     * @param msg   type of message received
+     * @param state String represent the State received
+     */
     public RepoMessage(int msg, String state) {
         this.msg = msg;
         this.state = state;
     }
 
-    public RepoMessage(int msg, int id , String state) {
+    /**
+     * Constructor of RepoMessage.
+     * 
+     * @param msg   type of message received
+     * @param int   passenger id received
+     * @param state String represent the State received
+     */
+    public RepoMessage(int msg, int id, String state) {
         this.msg = msg;
-        this.id =id;
-        
+        this.id = id;
+
     }
-    public int getMessageType(){
+
+    /**
+     * 
+     * @return a int representing the type of message
+     */
+    public int getMessageType() {
         return this.msg;
     }
 
-    public int getId(){
+    /**
+     * 
+     * @return a int representing the Passenger id
+     */
+    public int getId() {
         return this.id;
     }
 
-    public String getState(){
+    /**
+     * 
+     * @return a String representing the state
+     */
+    public String getState() {
         return this.state;
     }
 
-    public boolean getBoolResponse(){
+    /**
+     * 
+     * @return a boolean representing the boolean response from Departure region
+     */
+    public boolean getBoolResponse() {
         return this.boolTemp;
     }
-    
+
 }

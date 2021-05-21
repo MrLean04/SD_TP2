@@ -4,7 +4,7 @@ public class RepoMessageException extends RuntimeException {
         private RepoMessage msg;
     
         /**
-         * Instantiation of Lounge message exception.
+         * Instantiation of Repo message exception.
          * @param error text with error
          * @param msg message with exception
          */ 
@@ -14,7 +14,7 @@ public class RepoMessageException extends RuntimeException {
         }
     
         /**
-         * Obtaining the Lounge message with error.
+         * Obtaining the Repo message with error.
          * @return message
          */
         public RepoMessage getMsg() {

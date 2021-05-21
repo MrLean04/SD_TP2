@@ -52,58 +52,60 @@ public class Airlift {
     }
     /**
      * Airlift's method. Update from departure airport.
-     * @param inQueue queue from departure airport
      * @param id id of the passenger
-     * @param PassengerState current state of the passenger
+     * @param State current state of the passenger
      */
     public synchronized void setPassengerStatesUpdate(int id, String state){
       this.PassengerStates[id]=  state; 
-      //reportStatus();
+      reportStatus();
     }
     
     /**
      * Airlift's method. Update from departure airport.
-     * @param inQueue queue from departure airport
+     * @param size size of queue from departure airport
      */
     public synchronized void inQueueUpdate( int size){
       this.inqueue= size;
     }
     /**
      * Airlift's method. Update from departure airport.
-     * @param HostessState current state of the hostess
+     * @param State current state of the hostess
      */
     public synchronized void setHostessStateUpdate(String state){
       this.HostessState= state; 
-      //reportStatus();
+      reportStatus();
     }
     
     /**
      * Airlift's method. Update from departure airport.
      * @param numberF number of the flight
-     * @param PilotState current state of the pilot
+     * @param State current state of the pilot
      */
     public synchronized void setPilotStateUpdate( int numberF, String state){
       this.numberF= numberF;
       this.PilotState= state;  
-      //reportStatus();
+      reportStatus();
     }
     /**
      * Airlift's method. Update from plane.
-     * @param PilotState current state of the pilot
+     * @param State current state of the pilot
      */
     public synchronized void setPilotState2Update(String state) {
       this.PilotState= state; 
-      //reportStatus();
+      reportStatus();
     }
     /**
      * Airlift's method. Update from plane.
-     * @param inPlane queue from plane 
+     * @param size size of  queue from plane 
      */
     public synchronized void inPlaneUpdate(int size) {
       this.inPlane= size;
-    	//reportStatus();
     }
     
+    /**
+     * Airlift's method. Update from plane.
+     * @param size size of Destination from DestinationAirport 
+     */
     public synchronized void atDestinationUpdate(int size) {
       this.atDestination=size;
     }
