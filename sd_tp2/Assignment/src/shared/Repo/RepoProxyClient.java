@@ -22,7 +22,7 @@ public class RepoProxyClient extends Thread{
     
     @Override
     public void run() {
-        RepoMessage in;
+        RepoMessage in=null;
         RepoMessage out = null;
         
         in = ( RepoMessage) cs.readObject();

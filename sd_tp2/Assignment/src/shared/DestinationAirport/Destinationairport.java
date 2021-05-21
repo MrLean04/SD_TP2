@@ -141,7 +141,7 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
     private synchronized void setPilotStateUpdate( int numberF, PilotState state) {
         RepoMessage response;
         startCommunication(cc_repository);
-        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PILOT2_STATE, numberF, state.toString()));
+        cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PILOT_STATE, numberF, state.toString()));
         response = (RepoMessage) cc_repository.readObject();
         cc_repository.close(); 
     }

@@ -1,6 +1,6 @@
 package shared.Repo;
 import communication.ChannelServer;
-import static communication.ChannelPorts.PORT_REPO;;
+import static communication.ChannelPorts.PORT_REPO;
 /**
  * 
  * @author Leandro e João
