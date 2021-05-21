@@ -35,7 +35,7 @@ public class Hostess extends Thread{
 
 	private void openChannel(ChannelClient cc, String name){
 		while(!cc.open()){
-			System.out.println(name + "not open.");
+			System.out.println(name + " not open.");
 			try{
 				Thread.sleep(1000);
 			}catch(Exception ex){}
