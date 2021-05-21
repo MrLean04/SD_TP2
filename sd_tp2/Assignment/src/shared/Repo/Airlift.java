@@ -47,11 +47,17 @@ public class Airlift {
     }
 
     public Airlift(){
+      PassengerStates = new String[nPassengers];
+    
+        for (int i = 0; i < nPassengers; i++) {
+			PassengerStates[i] = "GTA";
+		}
+		PilotState = "ATG";
+    HostessState = "WFNF";
       this.nPassengers =21;
       this.fileName = "Airlift.log";
-
-      if(FileOp.exists(".", fileName)) {
-        FileOp.deleteFile(".", fileName);
+      if ((fileName != null) && !("".equals(fileName))) {
+        this.fileName = fileName;
     }
       //
     }
