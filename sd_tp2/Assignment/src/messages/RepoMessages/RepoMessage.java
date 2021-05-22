@@ -86,6 +86,7 @@ public class RepoMessage implements Serializable {
     public static final int SUCCESS = 100;
 
     private int id;
+    private int NumberF;
     private boolean boolTemp;
     private String state;
 
@@ -124,12 +125,12 @@ public class RepoMessage implements Serializable {
      * Constructor of RepoMessage.
      * 
      * @param msg   type of message received
-     * @param int   passenger id received
+     * @param NumberF   number of flight received
      * @param state String represent the State received
      */
-    public RepoMessage(int msg, int id, String state) {
+    public RepoMessage(int msg, int NumberF, String state) {
         this.msg = msg;
-        this.id = id;
+        this.NumberF = NumberF;
 
     }
 
@@ -148,7 +149,13 @@ public class RepoMessage implements Serializable {
     public int getId() {
         return this.id;
     }
-
+/**
+     * 
+     * @return a int representing the Passenger id
+     */
+    public int getNumberF() {
+        return this.NumberF;
+    }
     /**
      * 
      * @return a String representing the state

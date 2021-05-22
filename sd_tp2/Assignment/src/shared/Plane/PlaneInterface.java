@@ -9,7 +9,7 @@ public class PlaneInterface {
     private boolean status = true;
         /**
      * PlaneInterface constructor
-     * @param Plane Plane reference
+     * @param plane Plane reference
      */
     public PlaneInterface(Plane plane) {
         this.plane= plane;

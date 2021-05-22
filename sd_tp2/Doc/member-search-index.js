@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"shared.Repo","c":"RepoInterface","l":"getStatus()"},{"p":"shared.Repo","c":"RepoInterface","l":"process(RepoMessage)","url":"process(messages.RepoMessages.RepoMessage)"},{"p":"shared.Repo","c":"RepoInterface","l":"RepoInterface(Airlift)","url":"%3Cinit%3E(shared.Repo.Airlift)"}]

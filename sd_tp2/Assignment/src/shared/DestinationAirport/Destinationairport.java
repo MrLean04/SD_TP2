@@ -34,7 +34,6 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
     /**
      * Destinationairport's Constructor
      * 
-     * @param airlift repository
      */
     public Destinationairport() {//
         // this.airlift=airlift;

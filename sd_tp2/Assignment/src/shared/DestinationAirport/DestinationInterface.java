@@ -11,7 +11,7 @@ public class DestinationInterface {
     private boolean status = true;
         /**
      * DestinationInterface constructor
-     * @param Destinationairport Destinationairport reference
+     * @param destination Destinationairport reference
      */
     public DestinationInterface(Destinationairport destination) {
         this.destination= destination;

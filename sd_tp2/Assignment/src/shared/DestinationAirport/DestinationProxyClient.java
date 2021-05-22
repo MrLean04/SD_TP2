@@ -15,7 +15,7 @@ public class DestinationProxyClient extends Thread{
      * DestinationAirport proxy client constructor.
      * 
      * @param cs communication channel
-     * @param loungeInterface Destination interface
+     * @param destinationInterface Destination interface
      */
     public DestinationProxyClient(ChannelServer cs, DestinationInterface destinationInterface) {
         this.cs = cs;

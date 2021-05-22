@@ -47,8 +47,6 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 
 	/**
 	 * Departureairport's Constructor
-	 * 
-	 * @param airlift repository
 	 */
 	public Departureairport() {
 		//

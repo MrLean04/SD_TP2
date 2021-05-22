@@ -1,7 +1,0 @@
-{
-    "java.dependency.packagePresentation": "hierarchical",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "genclass.jar"
-    ]
-}

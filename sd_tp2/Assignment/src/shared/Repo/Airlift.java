@@ -9,13 +9,14 @@ import genclass.FileOp;
 import genclass.GenericIO;
 import genclass.TextFile;
 
+
 /**
  *
  * @author Leandro e Jo�o
  */
 public class Airlift {
 
-    private int nPassengers;
+    private final int nPassengers = 21;
     private String[] PassengerStates;	
     private String PilotState;
     private String HostessState;
@@ -23,30 +24,19 @@ public class Airlift {
     private int inPlane=0;
     private int atDestination=0;
     private int numberF=1;
-	
-    private String fileName = "Airlift.log";
+    private final String fileName = "Airlift.log";
+    TextFile log = new TextFile();
     /**
      * Airlift's Constructor
-     * @param nPassengers number of passengers
-     * @param fileName name of the file 
+     * 
      */
-    public Airlift(int nPassengers, String fileName) {
-		this.nPassengers = nPassengers;
-		PassengerStates = new String[nPassengers];
-    
-        for (int i = 0; i < nPassengers; i++) {
-			PassengerStates[i] = "GTA";
-		}
-		PilotState = "ATG";
-    HostessState = "WFNF";
-		
-        if ((fileName != null) && !("".equals(fileName))) {
-            this.fileName = fileName;
-        }
-        //reportInitialStatus();
-    }
 
     public Airlift(){
+      //this.nPassengers =21;
+      //this.fileName = "Airlift.log";
+      if(FileOp.exists(".", fileName)) {
+        FileOp.deleteFile(".", fileName);
+      }
       PassengerStates = new String[nPassengers];
     
         for (int i = 0; i < nPassengers; i++) {
@@ -54,17 +44,18 @@ public class Airlift {
 		}
 		PilotState = "ATG";
     HostessState = "WFNF";
-      this.nPassengers =21;
-      this.fileName = "Airlift.log";
+      //this.nPassengers =21;
+      //this.fileName = "Airlift.log";
       if ((fileName != null) && !("".equals(fileName))) {
-        this.fileName = fileName;
+        //this.fileName = fileName;
+        reportInitialStatus();
     }
       //
     }
     /**
      * Airlift's method. Update from departure airport.
      * @param id id of the passenger
-     * @param State current state of the passenger
+     * @param state current state of the passenger
      */
     public synchronized void setPassengerStatesUpdate(int id, String state){
       this.PassengerStates[id]=  state; 
@@ -80,7 +71,7 @@ public class Airlift {
     }
     /**
      * Airlift's method. Update from departure airport.
-     * @param State current state of the hostess
+     * @param state current state of the hostess
      */
     public synchronized void setHostessStateUpdate(String state){
       this.HostessState= state; 
@@ -90,7 +81,7 @@ public class Airlift {
     /**
      * Airlift's method. Update from departure airport.
      * @param numberF number of the flight
-     * @param State current state of the pilot
+     * @param state current state of the pilot
      */
     public synchronized void setPilotStateUpdate( int numberF, String state){
       this.numberF= numberF;
@@ -99,7 +90,7 @@ public class Airlift {
     }
     /**
      * Airlift's method. Update from plane.
-     * @param State current state of the pilot
+     * @param state current state of the pilot
      */
     public synchronized void setPilotState2Update(String state) {
       this.PilotState= state; 
@@ -210,6 +201,11 @@ private void reportStatus() {
         System.exit (1);
       }
     }
+/**
+*  Report that the flight has departed.
+*  Internal operation.
+*/
+
 
 public void reportBoarding()
 {
@@ -226,6 +222,11 @@ public void reportBoarding()
         System.exit (1);
       }
 }
+
+/**
+*  Report that the flight has departed. Internal operation.
+*  @param id 
+*/
 
 
 public void reportCheck(int id)
@@ -265,6 +266,12 @@ public void reportDeparted()
         System.exit (1);
       }
 }
+
+/**
+*  Report that the flight has departed.
+*  Internal operation.
+*/
+
 
 public void reportLDeparted()
 {

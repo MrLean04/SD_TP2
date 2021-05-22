@@ -30,8 +30,8 @@ public interface PilotDSA {
     public boolean goBack();
 
     /**
-     * Pilot's method. Pilot checks if it's the last flight. return a boolean
-     * representing if it the next flight is the last.
+     * Pilot's method. Pilot checks if it's the last flight. 
+     * @return a boolean representing if it the next flight is the last.
      */
     public boolean lastF();
 

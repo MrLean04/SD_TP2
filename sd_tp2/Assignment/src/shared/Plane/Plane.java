@@ -33,7 +33,6 @@ public class Plane implements PilotP, PassengerP, HostessP {
     /**
      * Plane's Constructor
      * 
-     * @param airlift repository
      */
     public Plane() {
         //

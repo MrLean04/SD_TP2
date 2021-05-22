@@ -14,7 +14,7 @@ public class PlaneProxyClient extends Thread{
      * Plane proxy client constructor.
      * 
      * @param cs communication channel
-     * @param PlaneInterface lounge interface
+     * @param planeInterface plane interface
      */
     public PlaneProxyClient(ChannelServer cs, PlaneInterface planeInterface) {
         this.cs = cs;

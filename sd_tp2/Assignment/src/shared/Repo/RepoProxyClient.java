@@ -13,7 +13,7 @@ public class RepoProxyClient extends Thread{
      * Repo proxy client constructor.
      * 
      * @param cs communication channel
-     * @param RepoInterface lounge interface
+     * @param repoInterface lounge interface
      */
     public RepoProxyClient(ChannelServer cs, RepoInterface repoInterface) {
         this.cs = cs;
