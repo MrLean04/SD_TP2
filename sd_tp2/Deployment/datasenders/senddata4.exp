@@ -17,7 +17,7 @@
 
 # Destination
 spawn scp -r ../assignment/src sd405@l040101-ws03.ua.pt:.
-expect "sd405@l040101-ws04.ua.pt's password:"
+expect "sd405@l040101-ws03.ua.pt's password:"
 send "qwerty\r"
 
 # Pilot

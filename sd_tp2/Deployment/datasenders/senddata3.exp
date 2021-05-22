@@ -12,7 +12,7 @@
 
 # Plane
 spawn scp -r ../assignment/src sd405@l040101-ws02.ua.pt:.
-expect "sd405@l040101-ws03.ua.pt's password:"
+expect "sd405@l040101-ws02.ua.pt's password:"
 send "qwerty\r"
 
 # Destination
