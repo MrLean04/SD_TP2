@@ -5,9 +5,9 @@ import java.util.Queue;
 import entities.Hostess.States.*;
 import entities.Passenger.States.*;
 import entities.Pilot.States.*;
-import genclass.FileOp;
-import genclass.GenericIO;
-import genclass.TextFile;
+//import genclass.FileOp;
+//import genclass.GenericIO;
+//import genclass.TextFile;
 
 
 /**
@@ -25,7 +25,7 @@ public class Airlift {
     private int atDestination=0;
     private int numberF=1;
     private final String fileName = "Airlift.log";
-    TextFile log = new TextFile();
+    //TextFile log = new TextFile();
     /**
      * Airlift's Constructor
      * 
@@ -34,9 +34,9 @@ public class Airlift {
     public Airlift(){
       //this.nPassengers =21;
       //this.fileName = "Airlift.log";
-      if(FileOp.exists(".", fileName)) {
-        FileOp.deleteFile(".", fileName);
-      }
+      //if(FileOp.exists(".", fileName)) {
+        //FileOp.deleteFile(".", fileName);
+      //}
       PassengerStates = new String[nPassengers];
     
         for (int i = 0; i < nPassengers; i++) {
@@ -46,10 +46,10 @@ public class Airlift {
     HostessState = "WFNF";
       //this.nPassengers =21;
       //this.fileName = "Airlift.log";
-      if ((fileName != null) && !("".equals(fileName))) {
+      //if ((fileName != null) && !("".equals(fileName))) {
         //this.fileName = fileName;
-        reportInitialStatus();
-    }
+        //reportInitialStatus();
+    //}
       //
     }
     /**
@@ -59,7 +59,7 @@ public class Airlift {
      */
     public synchronized void setPassengerStatesUpdate(int id, String state){
       this.PassengerStates[id]=  state; 
-      reportStatus();
+      //reportStatus();
     }
     
     /**
@@ -75,7 +75,7 @@ public class Airlift {
      */
     public synchronized void setHostessStateUpdate(String state){
       this.HostessState= state; 
-      reportStatus();
+      //reportStatus();
     }
     
     /**
@@ -86,7 +86,7 @@ public class Airlift {
     public synchronized void setPilotStateUpdate( int numberF, String state){
       this.numberF= numberF;
       this.PilotState= state;  
-      reportStatus();
+      //reportStatus();
     }
     /**
      * Airlift's method. Update from plane.
@@ -94,7 +94,7 @@ public class Airlift {
      */
     public synchronized void setPilotState2Update(String state) {
       this.PilotState= state; 
-      reportStatus();
+      //reportStatus();
     }
     /**
      * Airlift's method. Update from plane.
@@ -117,10 +117,10 @@ public class Airlift {
      */
     
     public void reportInitialStatus() {
-        TextFile log = new TextFile(); 
+        //TextFile log = new TextFile(); 
 
         //fileName = "Airlift.log";
-        if (!log.openForWriting(".", fileName)) {
+        /*if (!log.openForWriting(".", fileName)) {
             GenericIO.writelnString("A opera�ao de cria�ao do ficheiro " + fileName + " falhou!");
             System.exit(1);
         }
@@ -141,14 +141,14 @@ public class Airlift {
             GenericIO.writelnString("A opera�ao de fecho do ficheiro " + fileName + " falhou! -initialstatus");
             System.exit(1);
         }
-        reportStatus();
+        reportStatus();*/
     }
     /**
      *Report status to log
      */
 private void reportStatus() {
         
-	TextFile log = new TextFile ();                      // instantiation of a text file handler
+	/*TextFile log = new TextFile ();                      // instantiation of a text file handler
 
     String lineStatus = "";                              // state line to be printed
 
@@ -199,7 +199,7 @@ private void reportStatus() {
     if (!log.close ())
       { GenericIO.writelnString ("The operation of closing the file " + fileName + " failed!");
         System.exit (1);
-      }
+      }*/
     }
 /**
 *  Report that the flight has departed.
@@ -209,7 +209,7 @@ private void reportStatus() {
 
 public void reportBoarding()
 {
-   TextFile log = new TextFile ();                      // instantiation of a text file handler
+  /* TextFile log = new TextFile ();                      // instantiation of a text file handler
 
   if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
@@ -220,7 +220,7 @@ public void reportBoarding()
   if (!log.close ())
       { GenericIO.writelnString ("The operation of closing the file " + fileName + " failed!");
         System.exit (1);
-      }
+      }*/
 }
 
 /**
@@ -231,7 +231,7 @@ public void reportBoarding()
 
 public void reportCheck(int id)
 {
-   TextFile log = new TextFile ();                      // instantiation of a text file handler
+   /*TextFile log = new TextFile ();                      // instantiation of a text file handler
 
   if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
@@ -242,7 +242,7 @@ public void reportCheck(int id)
   if (!log.close ())
       { GenericIO.writelnString ("The operation of closing the file " + fileName + " failed!");
         System.exit (1);
-      }
+      }*/
 }
 
   /**
@@ -253,7 +253,7 @@ public void reportCheck(int id)
 
 public void reportDeparted()
 {
-   TextFile log = new TextFile ();                      // instantiation of a text file handler
+   /*TextFile log = new TextFile ();                      // instantiation of a text file handler
 
   if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
@@ -264,7 +264,7 @@ public void reportDeparted()
   if (!log.close ())
       { GenericIO.writelnString ("The operation of closing the file " + fileName + " failed!");
         System.exit (1);
-      }
+      }*/
 }
 
 /**
@@ -275,7 +275,7 @@ public void reportDeparted()
 
 public void reportLDeparted()
 {
-   TextFile log = new TextFile ();                      // instantiation of a text file handler
+   /*TextFile log = new TextFile ();                      // instantiation of a text file handler
 
   if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
@@ -286,7 +286,7 @@ public void reportLDeparted()
   if (!log.close ())
       { GenericIO.writelnString ("The operation of closing the file " + fileName + " failed!");
         System.exit (1);
-      }
+      }*/
 }
 
 /**
@@ -295,7 +295,7 @@ public void reportLDeparted()
 */
 
 public void reportArrived()
-{
+{/*
    TextFile log = new TextFile ();                      // instantiation of a text file handler
 
   if (!log.openForAppending(".", fileName))
@@ -307,7 +307,7 @@ public void reportArrived()
   if (!log.close ())
       { GenericIO.writelnString ("The operation of closing the file " + fileName + " failed!");
         System.exit (1);
-      }
+      }*/
 }
 
   /**
@@ -317,7 +317,7 @@ public void reportArrived()
 
 public void reportreturning()
 {
-   TextFile log = new TextFile ();                      // instantiation of a text file handler
+   /*TextFile log = new TextFile ();                      // instantiation of a text file handler
 
   if (!log.openForAppending(".", fileName))
       { GenericIO.writelnString ("The operation of creating the file " + fileName + " failed!");
@@ -328,7 +328,7 @@ public void reportreturning()
   if (!log.close ())
       { GenericIO.writelnString ("The operation of closing the file " + fileName + " failed!");
         System.exit (1);
-      }
+      }*/
 }
 
 }

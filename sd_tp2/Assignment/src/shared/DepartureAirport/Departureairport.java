@@ -346,7 +346,7 @@ public class Departureairport implements PilotDA, PassengerDA, HostessDA {
 	private synchronized void setPassengerStatesUpdate(int id, PassengerState state) {
 		RepoMessage response;
 		startCommunication(cc_repository);
-		cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PASSENGER_STATE, state.toString()));
+		cc_repository.writeObject(new RepoMessage(RepoMessage.SET_PASSENGER_STATE,state.toString(), id));
 		response = (RepoMessage) cc_repository.readObject();
 		cc_repository.close();
 	}

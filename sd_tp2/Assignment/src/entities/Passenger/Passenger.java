@@ -175,8 +175,8 @@ public class Passenger extends Thread {
 				case IN_FLIGHT:
 					System.out.println("IN_FLIGHT " + id);
 					if (BoardThePlane()) {
-						Deboarding();
 						WaitingForEndOfFlight();
+						Deboarding();
 						setPassengerState(PassengerState.AT_DESTINATION);
 
 					}
@@ -184,7 +184,7 @@ public class Passenger extends Thread {
 
 				case AT_DESTINATION:
 					System.out.println("AT_DESTINATION " + id);
-					setPassengerState(PassengerState.GOING_TO_AIRPORT);
+					//setPassengerState(PassengerState.GOING_TO_AIRPORT);
 					atAirport();
 					// Deboarding();
 					this.happyPassenger = true;

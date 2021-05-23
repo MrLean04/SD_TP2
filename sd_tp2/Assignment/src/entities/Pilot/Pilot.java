@@ -156,7 +156,7 @@ public class Pilot extends Thread {
 	 */
 	private boolean AnnounceArrival() {
 		DestinationAirportMessage response;
-		openChannel(cc_Departure, "Pilot" + ": Destination Airport");
+		openChannel(cc_Destination, "Pilot" + ": Destination Airport");
 		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.ANNOUNCE_ARRIVAL));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
@@ -169,7 +169,7 @@ public class Pilot extends Thread {
 	 */
 	private boolean goBack() {
 		DestinationAirportMessage response;
-		openChannel(cc_Departure, "Pilot" + ": Destination Airport");
+		openChannel(cc_Destination, "Pilot" + ": Destination Airport");
 		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.GO_BACK));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
@@ -182,7 +182,7 @@ public class Pilot extends Thread {
 	 */
 	private boolean lastF() {
 		DestinationAirportMessage response;
-		openChannel(cc_Departure, "Pilot" + ": Destination Airport");
+		openChannel(cc_Destination, "Pilot" + ": Destination Airport");
 		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.LASTF));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
@@ -281,6 +281,7 @@ public class Pilot extends Thread {
 				case FLYING_BACK:
 					System.out.println("FLYING BACK");
 					if (AnnounceArrival()) {
+						System.out.println("End program");
 						endProgram();
 						happypilot = true;
 						// System.out.println("morri");

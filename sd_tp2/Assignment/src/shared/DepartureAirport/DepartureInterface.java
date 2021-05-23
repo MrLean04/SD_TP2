@@ -35,16 +35,12 @@ public class DepartureInterface {
         
         switch(inMsg.getMessageType()) {
             case DepartureAirportMessage.PARK_AT_TRANSFER:
-            System.out.println("Pre Park");
                 Departure.parkAtTransfer();
-                System.out.println("Park");
                 outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS);
                 break;
             
             case DepartureAirportMessage.READY_FOR_BOARDING:
-                System.out.println("Pre Ready for boarding");
                 Departure.readyForBoarding();
-                System.out.println("Ready for boarding");
                 outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS);
                 break;
             
@@ -59,16 +55,12 @@ public class DepartureInterface {
                 break;
 
             case DepartureAirportMessage.PREPARE_PASS_BOARDING:
-                System.out.println("Pre Prepare Pass");
                 Departure.preparePassBoarding();
-                System.out.println("Prepare Pass");
                 outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS);
                 break;
                 
             case DepartureAirportMessage.CHECK_AND_WAIT:
-                System.out.println("Pre Check Wait");
                 response=Departure.checkAndWait();
-                System.out.println("Check Wait");
                 outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS,(boolean) response);
                 break;
             
@@ -93,9 +85,7 @@ public class DepartureInterface {
                 break;
             
             case DepartureAirportMessage.TRAVEL_TO_AIRPORT:
-                System.out.println("Pre Travel to airport");
                 Departure.travelToAirport();
-                System.out.println("Travel to airport");
                 outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS);
                 break;
             
@@ -105,21 +95,17 @@ public class DepartureInterface {
                 break;
             
             case DepartureAirportMessage.WAIT_IN_QUEUE:
-                System.out.println("Wait in QUEUE " + inMsg.getId());
                 Departure.waitInQueue(inMsg.getId());
-                System.out.println(inMsg.getId());
                 outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS);
                 break;
             
             case DepartureAirportMessage.SHOW_DOCUMENTS:
                 response = Departure.showDocuments(inMsg.getId());
-                System.out.println(inMsg.getId());
                 outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS, (boolean) response);
                 break;
             
             case DepartureAirportMessage.WAIT_FOR_NEXT_FLIGHT_P:
                 Departure.waitForNextFlightP(inMsg.getId());
-                System.out.println(inMsg.getId());
                 outMsg = new DepartureAirportMessage(DepartureAirportMessage.SUCCESS);
                 break;
             

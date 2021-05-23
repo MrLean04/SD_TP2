@@ -36,7 +36,7 @@ public class RepoInterface {
 
             case RepoMessage.SET_PASSENGER_STATE:
                 System.out.println("Set Passenger");
-                System.out.println(inMsg.getNumberF() + " "+ inMsg.getState());
+                System.out.println(inMsg.getId() + " "+ inMsg.getState());
                 airlift.setPassengerStatesUpdate(inMsg.getId(), inMsg.getState());
                 outMsg = new RepoMessage(RepoMessage.SUCCESS);
                 break;

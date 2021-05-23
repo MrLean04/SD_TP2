@@ -131,8 +131,23 @@ public class RepoMessage implements Serializable {
     public RepoMessage(int msg, int NumberF, String state) {
         this.msg = msg;
         this.NumberF = NumberF;
+        this.state = state;
 
     }
+    /**
+     * Constructor of RepoMessage.
+     * 
+     * @param msg   type of message received
+     * @param state String represent the State received
+     * @param id   number of flight received
+     */
+    public RepoMessage(int msg, String state,int id) {
+        this.msg = msg;
+        this.id = id;
+        this.state = state;
+
+    }
+
 
     /**
      * 
