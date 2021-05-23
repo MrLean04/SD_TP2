@@ -120,7 +120,7 @@ public class Passenger extends Thread {
 	 */
 	private void Deboarding() {
 		DestinationAirportMessage response;
-		openChannel(cc_Destination, "Passenger" + this.id + ": Destination Airport");
+		openChannel(cc_Destination, "Passenger" + this.id + ": Destination Airport  Deboarding");
 		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.DEBOARDING, this.id));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();
@@ -144,7 +144,7 @@ public class Passenger extends Thread {
 	 */
 	private void atAirport() {
 		DestinationAirportMessage response;
-		openChannel(cc_Destination, "Passenger" + this.id + ": Destination Airport");
+		openChannel(cc_Destination, "Passenger" + this.id + ": Destination Airport  at Airport");
 		cc_Destination.writeObject(new DestinationAirportMessage(DestinationAirportMessage.AT_AIRPORT, this.id));
 		response = (DestinationAirportMessage) cc_Destination.readObject();
 		cc_Destination.close();

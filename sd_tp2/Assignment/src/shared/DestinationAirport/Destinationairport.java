@@ -52,6 +52,10 @@ public class Destinationairport implements PilotDSA, PassengerDSA, HostessDSA {
         // TO-DO
         setPilotState2Update(PilotState.FLYING_BACK);
         reportArrived();
+        try {
+            wait((long) (1 + 200 * Math.random()));
+        } catch (InterruptedException s) {
+        }
         if (!l) {
             System.out.println("contador:" + " " + count);
             while (count != 5) {
